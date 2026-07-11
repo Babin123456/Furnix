@@ -2366,6 +2366,27 @@ input:focus {
   }
 }
 /* ============================================
+   LIVE FORM VALIDATION
+   ============================================ */
+.form-input.error, .input-group input.error {
+  border-color: #9b281a !important;
+  background: #fff5f5 !important;
+}
+.form-input.success, .input-group input.success {
+  border-color: #256029 !important;
+  background: #f0fff4 !important;
+}
+.field-error {
+  color: #9b281a;
+  font-size: 0.82rem;
+  margin-top: 0.3rem;
+  display: none;
+}
+.field-error.visible {
+  display: block;
+}
+
+/* ============================================
    SKELETON LOADING SCREENS
    ============================================ */
 

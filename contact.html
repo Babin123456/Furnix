@@ -128,6 +128,7 @@
                 placeholder="Enter your full name"
                 required
                 autocomplete="name"
+                data-validate="required"
             >
         </div>
     </div>
@@ -144,6 +145,7 @@
                 placeholder="Enter your email"
                 required
                 autocomplete="email"
+                data-validate="required|email:Please enter a valid email"
             >
         </div>
     </div>
@@ -159,6 +161,7 @@
                 class="form-input"
                 placeholder="Subject"
                 required
+                data-validate="required"
             >
         </div>
     </div>
@@ -174,6 +177,7 @@
                 placeholder="Write your message"
                 rows="5"
                 required
+                data-validate="required|minLength:10:Message must be at least 10 characters"
             ></textarea>
         </div>
     </div>
@@ -255,6 +259,7 @@
     </footer>
     <button id="topBtn" onclick="scrollToTop()">↑ Top</button>
     <script src="app.js"></script>
+    <script src="form-validation.js"></script>
     <script type="module" src="auth.js"></script>
 </body>
 </html>
