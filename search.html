@@ -280,6 +280,14 @@
         document.getElementById('searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') searchProducts();
         });
+
+        // Auto-search from URL parameter (for 404 page redirect)
+        var urlParams = new URLSearchParams(window.location.search);
+        var queryParam = urlParams.get('q');
+        if (queryParam) {
+            document.getElementById('searchInput').value = queryParam;
+            searchProducts();
+        }
     </script>
 </body>
 </html>
