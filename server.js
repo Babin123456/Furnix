@@ -51,6 +51,14 @@ app.post('/api/contact', (req, res) => {
   });
 });
 
+// Serve static files
+app.use(express.static(__dirname));
+
+// SPA fallback — serve 404.html for unknown routes
+app.use((req, res) => {
+  res.status(404).sendFile(__dirname + '/404.html');
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
