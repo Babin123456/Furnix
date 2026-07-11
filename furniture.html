@@ -516,7 +516,7 @@
             sign up to receive 10% off <br />
             on your first order
           </h3>
-          <form class="input-container" onsubmit="event.preventDefault(); if(typeof showToast === 'function') showToast('Subscribed to newsletter!', 'success'); else alert('Subscribed to newsletter!');">
+          <form class="input-container" onsubmit="event.preventDefault(); showToast('Thanks for subscribing to our newsletter!', 'success');">
                     <input
               type="email"
               name="email"
@@ -603,6 +603,7 @@
     </footer>
     <button id="topBtn" onclick="scrollToTop()">↑ Top</button>
     <script src="app.js"></script>
+    <script src="toast.js"></script>
     <script type="module" src="auth.js"></script>
   </body>
 </html>
