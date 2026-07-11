@@ -1097,3 +1097,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+/* Update for feat/scroll-back-to-top */
