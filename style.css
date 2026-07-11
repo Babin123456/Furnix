@@ -2720,3 +2720,14 @@ a:focus-visible {
 .favorite-icon:hover, .favorite-icon:focus {
     color: var(--golden-hour) !important;
 }
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--golden-hour), var(--antique-brown));
+  z-index: 10001;
+  transition: width 0.1s linear;
+}

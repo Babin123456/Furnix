@@ -861,29 +861,22 @@ function setupBackToTop() {
     document.body.appendChild(backToTopBtn);
 
     const SCROLL_THRESHOLD = 400;
-    let ticking = false;
 
-    function toggleVisibility() {
-        if (window.scrollY > SCROLL_THRESHOLD) {
+    function toggleVisibility(scrollY) {
+        if (scrollY > SCROLL_THRESHOLD) {
             backToTopBtn.classList.add('show');
         } else {
             backToTopBtn.classList.remove('show');
         }
-        ticking = false;
     }
 
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(toggleVisibility);
-            ticking = true;
-        }
-    });
+    window.addScrollListener(toggleVisibility);
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    toggleVisibility();
+    toggleVisibility(window.scrollY);
 }
 
 document.addEventListener('DOMContentLoaded', setupBackToTop);
@@ -924,28 +917,6 @@ if (themeToggleBtn) {
       localStorage.setItem("theme", "light");
     }
   });
-}
-let topBtn = document.getElementById("topBtn");
-
-// show button when scrolling
-window.onscroll = function () {
-  if (!topBtn) return;
-  if (document.documentElement.scrollTop > 100) {
-    topBtn.style.display = "block";
-  } else {
-    topBtn.style.display = "none";
-  }
-};
-
-// scroll to top function
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}
-if (topBtn) {
-  topBtn.addEventListener("click", scrollToTop);
 }
 /* ---- THEME TOGGLE LOGIC ---- */
 document.addEventListener("DOMContentLoaded", () => {
