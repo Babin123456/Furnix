@@ -1097,3 +1097,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+/* Update for enhancement/dark-mode-support */
