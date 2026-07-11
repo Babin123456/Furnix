@@ -42,3 +42,5 @@ Instances of abusive, harassing, or otherwise unacceptable behavior can be repor
 
 All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances.
 
+
+/* Update for docs/architecture-overview */
