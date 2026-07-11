@@ -3,10 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Shop Furnix modern furniture, lighting, decor, and handcrafted pieces designed for comfortable contemporary homes."
-    />
+    <meta name="description" content="Browse Furnix's complete collection of modern furniture including sofas, beds, tables, chairs, and storage solutions for every room in your home." />
+    <meta property="og:title" content="All Furniture - Furnix">
+    <meta property="og:description" content="Browse Furnix's complete collection of modern furniture including sofas, beds, tables, chairs, and storage solutions for every room in your home.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://furnix-neon.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#f1b555">
     <title>Furnix - All Furniture</title>
 
     <!-- CSS LINK -->
@@ -62,7 +65,7 @@
             </button>
           </li>
           <li><a href="collections.html" class="link">collections</a></li>
-          <li><a href="furniture.html" class="link">furniture</a></li>
+          <li><a href="furniture.html" class="link" aria-current="page">furniture</a></li>
           <li><a href="designers.html" class="link">designers</a></li>
           <li><a href="trends.html" class="link">trends</a></li>
           <li><a href="about.html" class="link">about us</a></li>
@@ -275,7 +278,7 @@
 
           <!-- Product 1 -->
           <div
-            class="product-card product-card--hidden"
+            class="product-card product-card--hidden" tabindex="0"
             data-created="2026-07-01"
             data-popularity="95"
             data-availability="in-stock"
@@ -308,7 +311,7 @@
 
           <!-- Product 2 -->
           <div
-            class="product-card product-card--hidden"
+            class="product-card product-card--hidden" tabindex="0"
             data-created="2026-06-20"
             data-popularity="88"
             data-availability="in-stock"
@@ -341,7 +344,7 @@
 
           <!-- Product 3 -->
           <div
-            class="product-card product-card--hidden"
+            class="product-card product-card--hidden" tabindex="0"
             data-created="2026-06-12"
             data-popularity="75"
             data-availability="in-stock"
@@ -374,7 +377,7 @@
 
           <!-- Product 4 -->
           <div
-            class="product-card product-card--hidden"
+            class="product-card product-card--hidden" tabindex="0"
             data-created="2026-07-04"
             data-popularity="82"
             data-availability="out-of-stock"
@@ -407,7 +410,7 @@
 
           <!-- Product 5 -->
           <div
-            class="product-card product-card--hidden"
+            class="product-card product-card--hidden" tabindex="0"
             data-created="2026-05-28"
             data-popularity="68"
             data-availability="in-stock"
@@ -440,7 +443,7 @@
 
           <!-- Product 6 -->
           <div
-            class="product-card product-card--hidden"
+            class="product-card product-card--hidden" tabindex="0"
             data-created="2026-07-03"
             data-popularity="91"
             data-availability="in-stock"
@@ -473,7 +476,7 @@
 
           <!-- Product 7 -->
           <div
-            class="product-card product-card--hidden"
+            class="product-card product-card--hidden" tabindex="0"
             data-created="2026-06-30"
             data-popularity="97"
             data-availability="out-of-stock"
@@ -604,5 +607,6 @@
     <button id="topBtn" onclick="scrollToTop()">↑ Top</button>
     <script src="app.js"></script>
     <script type="module" src="auth.js"></script>
+    <script src="skip-to-content.js"></script>
   </body>
 </html>
