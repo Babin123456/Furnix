@@ -38,8 +38,9 @@
         }
 
         .login-box{
+            color: var(--text);
             width:420px;
-            background:rgba(255,255,255,0.95);
+            background: var(--card);
             backdrop-filter:blur(10px);
             border-radius:16px;
             padding:40px;
@@ -51,13 +52,13 @@
             font-size:2rem;
             font-weight:700;
             margin-bottom:10px;
-            color:#000;
+            color: var(--text);
             text-transform: uppercase;
         }
 
         .subtitle{
             text-align:center;
-            color:#666;
+            color: var(--text-muted);
             margin-bottom:30px;
         }
 
@@ -74,7 +75,13 @@
         .input-group input{
             width:100%;
             padding:14px;
-            border:1px solid #ddd;
+            border:1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            border-radius:8px;
+            outline:none;
+            transition:0.3s;
+            font-family: 'Jost', sans-serif;
             border-radius:8px;
             outline:none;
             transition:0.3s;
@@ -187,7 +194,80 @@
             color:#256029;
             border:1px solid #c3e6cb;
         }
+
+        /* Dark Mode overrides */
+        [data-theme="dark"] .login-box {
+            background: rgba(30, 30, 30, 0.85);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        [data-theme="dark"] .logo {
+            color: #fff;
+        }
+
+        [data-theme="dark"] .subtitle {
+            color: #bbb;
+        }
+
+        [data-theme="dark"] .input-group label {
+            color: #eee;
+        }
+
+        [data-theme="dark"] .input-group input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: #fff;
+        }
+
+        [data-theme="dark"] .input-group input:focus {
+            border-color: #9b281a;
+        }
+
+        [data-theme="dark"] .input-hint {
+            color: #888;
+        }
+
+        [data-theme="dark"] .options {
+            color: #ccc;
+        }
+
+        [data-theme="dark"] .divider {
+            color: #777;
+        }
+
+        [data-theme="dark"] .divider::before, [data-theme="dark"] .divider::after {
+            background: #444;
+        }
+
+        [data-theme="dark"] .google-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: #eee;
+        }
+
+        [data-theme="dark"] .google-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #666;
+        }
+
+        [data-theme="dark"] .signup {
+            color: #ccc;
+        }
     </style>
+
+<script>
+    (function() {
+        try {
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        } catch (e) {}
+    })();
+</script>
 </head>
 <body>
 

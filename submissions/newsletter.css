@@ -1,0 +1,20 @@
+/* Submissions Newsletter Hub Layout CSS */
+
+.newsletter-subscription-box {
+    background: linear-gradient(135deg, #0d0d0d 0%, #151515 100%);
+    border: 1px solid #ff0055;
+    border-radius: 12px;
+    padding: 35px;
+    max-width: 500px;
+    margin: 50px auto;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.25);
+    color: #ffffff;
+    font-family: 'Jost', sans-serif;
+    text-align: center;
+}
+
+.newsletter-subscription-box h2 {
+    color: #ff0055;
+    text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+    margin-bottom: 20px;
+}

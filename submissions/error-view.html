@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Recovery Sandbox - ECSoC_2026</title>
+    <link rel="stylesheet" href="error-view.css">
+</head>
+<body>
+    <div id="error-boundary-root"></div>
+    <script src="error-boundary.js"></script>
+    <script src="error-fallback.js"></script>
+    <script src="error-reporter.js"></script>
+    <script src="error-view.html" type="text/template" id="error-template">
+        <div class="error-container">
+            <h2>ECSoC_2026: Application crash recovery portal</h2>
+            <p>An unexpected runtime error has been trapped.</p>
+            <button onclick="location.reload()">Reload Webpage</button>
+        </div>
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Trigger test error
+            throw new Error("Sandbox error boundary verification");
+        });
+    </script>
+</body>
+</html>

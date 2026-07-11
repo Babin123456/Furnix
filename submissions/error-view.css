@@ -1,0 +1,32 @@
+/* Submissions Error Boundary CSS layout */
+
+.error-container {
+    background: #0a0a0a;
+    border: 2px solid #ff0055;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 500px;
+    margin: 60px auto;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+    color: #ffffff;
+    font-family: 'Jost', sans-serif;
+}
+
+.error-container h2 {
+    color: #ff0055;
+    text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+    margin-bottom: 15px;
+}
+
+.error-container button {
+    background: #ff0055;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 15px;
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}

@@ -1,0 +1,49 @@
+/* Submissions Checkout Stylesheet */
+
+.checkout-validator-wrapper {
+    background: rgba(20, 20, 20, 0.85);
+    border: 1px solid #ff0055;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+    font-family: 'Jost', sans-serif;
+    color: #ffffff;
+}
+
+.checkout-validator-title {
+    font-size: 1.2rem;
+    color: #ff0055;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.validation-feedback-card {
+    background: rgba(255, 0, 85, 0.1);
+    border-left: 4px solid #ff0055;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.validation-feedback-card.success {
+    border-left-color: #00ffcc;
+    background: rgba(0, 255, 204, 0.1);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

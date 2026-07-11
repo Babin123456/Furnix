@@ -42,7 +42,7 @@
                 </ul></li>
             </ul>
             <ul class="nav-icons flex g-one-half">
-                <li><a href="#" class="icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a></li>
+                <li><a href="search.html" class="icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a></li>
                 <li><a href="login.html" class="icon" aria-label="Account"><i class="fa-solid fa-user" aria-hidden="true"></i></a></li>
                 <li>
                     <a href="wishlist.html" class="icon nav-icon-wrapper" aria-label="Wishlist">
@@ -176,10 +176,10 @@
             <div class="footer-wrapper">
                 <a href="index.html" class="logo">Furnix.</a>
                 <h3>sign up to receive 10% off <br> on your first order</h3>
-                <div class="input-container">
-                    <input type="email" name="email" id="footerEmail" placeholder="Enter your email.." autocomplete="off">
-                    <a href="#" class="simple-icon" aria-label="Open details"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-                </div>
+                <form class="input-container" onsubmit="event.preventDefault(); if(typeof showToast === 'function') showToast('Subscribed to newsletter!', 'success'); else alert('Subscribed to newsletter!');">
+                    <input type="email" name="email" id="footerEmail" placeholder="Enter your email.." autocomplete="off" required>
+                    <button type="submit" class="simple-icon" aria-label="Open details" style="background:none; border:none; cursor:pointer;"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </form>
                 <ul class="footer-social-icon flex">
                     <li><a href="#" class="icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
                     <li><a href="#" class="icon" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a></li>
