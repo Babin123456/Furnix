@@ -1097,3 +1097,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+/* Update for accessibility/navbar-mobile-focus */
