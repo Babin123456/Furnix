@@ -15,6 +15,12 @@ form.addEventListener('submit', async (e) => {
     const name = document.getElementById('signupName').value.trim();
     const email = document.getElementById('signupEmail').value.trim();
     const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('signupConfirmPassword')?.value;
+
+    if (confirmPassword && password !== confirmPassword) {
+        showMessage('Passwords do not match.', 'error');
+        return;
+    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Creating account...';
