@@ -2657,6 +2657,49 @@ span,
   background: rgba(0, 0, 0, 0.6);
 }
 
+/* Password Visibility Toggle */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 3rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted, #888);
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.password-toggle:hover {
+  color: var(--text, #111);
+}
+
+.password-toggle:focus-visible {
+  outline: 2px solid var(--golden-hour);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.password-visible i {
+  color: var(--antique-brown);
+}
+
 /* Theme Toggle Button */
 .theme-toggle {
   background: none;
