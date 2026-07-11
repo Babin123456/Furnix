@@ -2720,3 +2720,5 @@ a:focus-visible {
 .favorite-icon:hover, .favorite-icon:focus {
     color: var(--golden-hour) !important;
 }
+
+/* Update for fix/modal-overflow-scroll */
