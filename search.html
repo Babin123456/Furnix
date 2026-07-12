@@ -91,10 +91,41 @@
                 </div>
             </div>
 
+            <!-- Filters -->
+            <div class="search-filters">
+                <select id="categoryFilter" aria-label="Filter by category">
+                    <option value="all">All Categories</option>
+                    <option value="Seating">Seating</option>
+                    <option value="Tables">Tables</option>
+                    <option value="Lighting">Lighting</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Bedroom">Bedroom</option>
+                </select>
+                <select id="priceFilter" aria-label="Filter by price range">
+                    <option value="all">All Prices</option>
+                    <option value="0-50">Under $50</option>
+                    <option value="50-200">$50 – $200</option>
+                    <option value="200-500">$200 – $500</option>
+                    <option value="500-2000">$500 – $2,000</option>
+                    <option value="2000-99999">$2,000+</option>
+                </select>
+                <button id="clearSearchBtn" class="search-clear-btn" style="display:none;">Clear</button>
+            </div>
+
+            <!-- Search stats -->
+            <div id="searchStats" class="search-stats"></div>
+
+            <!-- Loading indicator -->
+            <div id="searchLoading" class="search-loading" style="display:none;">
+                <i class="fa-solid fa-spinner fa-spin"></i> Searching…
+            </div>
+
             <!-- Results grid -->
             <div id="searchResults" class="products-grid" style="margin-top: 2rem;">
-                <p class="detail-info-platform" style="text-align:center;">🔍 Type a keyword and press search.</p>
+                <p class="detail-info-platform" style="text-align:center;">🔍 Type a keyword to search products.</p>
             </div>
+
+            <p class="search-shortcut-hint">Press <kbd>Ctrl+K</kbd> or <kbd>/</kbd> to focus search</p>
         </section>
     </main>
 
@@ -153,6 +184,8 @@
 
     <script src="app.js"></script>
     <script type="module" src="auth.js"></script>
+    <script src="toast.js"></script>
+    <script src="form-validation.js"></script>
     <script>
         // ---------- PRODUCT DATABASE (matches furniture.html) ----------
         const products = [
@@ -164,6 +197,17 @@
             { id: "modern-bed", name: "Modern Scandinavian Bed", category: "Bedroom", price: 1500, image: "images/bed.png" },
             { id: "luxury-sofa", name: "Luxury Sectional Sofa", category: "Seating", price: 1200, image: "images/sofa.png" }
         ];
+
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const resultsDiv = document.getElementById('searchResults');
+        const searchStats = document.getElementById('searchStats');
+        const searchLoading = document.getElementById('searchLoading');
+        const clearBtn = document.getElementById('clearSearchBtn');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const priceFilter = document.getElementById('priceFilter');
+
+        let debounceTimer = null;
 
         // Helper: get wishlist from localStorage (using existing function from app.js)
         function getWishlist() {
@@ -190,9 +234,9 @@
             if (cartBtn) {
                 cartBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // Use global addToCart function from app.js
                     if (typeof addToCart === 'function') {
                         addToCart({ ...product });
+                        if (typeof showToast === 'function') showToast(product.name + ' added to cart!', 'success');
                     } else {
                         console.error('addToCart not defined');
                     }
@@ -202,21 +246,20 @@
             if (favBtn) {
                 favBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // Use global toggleWishlist function from app.js
                     if (typeof toggleWishlist === 'function') {
                         toggleWishlist({ ...product });
-                        // Update heart icon style
                         const icon = favBtn.querySelector('i');
                         if (isInWishlist(product.id)) {
                             icon.classList.remove('fa-regular');
                             icon.classList.add('fa-solid');
                             icon.style.color = '#ff0055';
+                            if (typeof showToast === 'function') showToast(product.name + ' added to wishlist!', 'success');
                         } else {
                             icon.classList.remove('fa-solid');
                             icon.classList.add('fa-regular');
                             icon.style.color = '';
+                            if (typeof showToast === 'function') showToast(product.name + ' removed from wishlist.', 'info');
                         }
-                        // Update wishlist badge (global function exists)
                         if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
                     } else {
                         console.error('toggleWishlist not defined');
@@ -227,58 +270,143 @@
 
         // Render search results
         function searchProducts() {
-            const query = document.getElementById('searchInput').value.trim().toLowerCase();
-            const resultsDiv = document.getElementById('searchResults');
+            const query = searchInput.value.trim().toLowerCase();
+            const category = categoryFilter.value;
+            const price = priceFilter.value;
 
-            if (!query) {
-                resultsDiv.innerHTML = '<p class="detail-info-platform" style="text-align:center;">📝 Please enter a search term.</p>';
-                return;
+            // Clear any pending debounce
+            if (debounceTimer) {
+                clearTimeout(debounceTimer);
+                debounceTimer = null;
             }
 
-            const matched = products.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.category.toLowerCase().includes(query)
-            );
+            // Show loading
+            searchLoading.style.display = 'block';
+            resultsDiv.innerHTML = '';
+            searchStats.textContent = '';
+            clearBtn.style.display = 'none';
 
-            if (matched.length === 0) {
-                resultsDiv.innerHTML = '<p class="detail-info-platform" style="text-align:center;">😞 No products found. Try "sofa", "lamp", or "table".</p>';
-                return;
-            }
+            // Simulate async search
+            setTimeout(function () {
+                // Filter by query
+                let matched = products;
+                if (query) {
+                    matched = matched.filter(p =>
+                        p.name.toLowerCase().includes(query) ||
+                        p.category.toLowerCase().includes(query)
+                    );
+                }
 
-            // Generate HTML for each product
-            resultsDiv.innerHTML = matched.map(p => {
-                const inWish = isInWishlist(p.id);
-                const heartClass = inWish ? 'fa-solid' : 'fa-regular';
-                const heartColor = inWish ? 'style="color:#ff0055;"' : '';
-                return `
-                    <div class="product-card" data-product-id="${p.id}">
-                        <div class="product-image">
-                            <img src="${p.image}" alt="${p.name}" width="300" height="300" loading="lazy">
-                            <a href="#" class="favorite-icon" aria-label="Add to wishlist">
-                                <i class="${heartClass} fa-heart" ${heartColor}></i>
-                            </a>
-                            <a href="#" class="btn brown-bg">Add to cart</a>
+                // Filter by category
+                if (category !== 'all') {
+                    matched = matched.filter(p => p.category === category);
+                }
+
+                // Filter by price range
+                if (price !== 'all') {
+                    const [min, max] = price.split('-').map(Number);
+                    matched = matched.filter(p => p.price >= min && p.price <= max);
+                }
+
+                // Hide loading
+                searchLoading.style.display = 'none';
+
+                // Empty state - no active filters
+                if (!query && category === 'all' && price === 'all') {
+                    resultsDiv.innerHTML = '<p class="detail-info-platform" style="text-align:center;">🔍 Type a keyword or use the filters to find products.</p>';
+                    searchStats.textContent = '';
+                    clearBtn.style.display = 'none';
+                    return;
+                }
+
+                // Show clear button when filters are active
+                if (query || category !== 'all' || price !== 'all') {
+                    clearBtn.style.display = 'inline-block';
+                }
+
+                // No results
+                if (matched.length === 0) {
+                    resultsDiv.innerHTML = '<p class="detail-info-platform" style="text-align:center;">😞 No products found. Try adjusting your search or filters.</p>';
+                    searchStats.textContent = '0 results';
+                    return;
+                }
+
+                // Show result count
+                searchStats.textContent = matched.length + ' result' + (matched.length !== 1 ? 's' : '');
+
+                // Generate HTML for each product
+                resultsDiv.innerHTML = matched.map(p => {
+                    const inWish = isInWishlist(p.id);
+                    const heartClass = inWish ? 'fa-solid' : 'fa-regular';
+                    const heartColor = inWish ? 'style="color:#ff0055;"' : '';
+                    return `
+                        <div class="product-card" data-product-id="${p.id}">
+                            <div class="product-image">
+                                <img src="${p.image}" alt="${p.name}" width="300" height="300" loading="lazy">
+                                <a href="#" class="favorite-icon" aria-label="Add to wishlist">
+                                    <i class="${heartClass} fa-heart" ${heartColor}></i>
+                                </a>
+                                <a href="#" class="btn brown-bg">Add to cart</a>
+                            </div>
+                            <div>
+                                <small>${p.category}</small>
+                                <h6>${p.name}</h6>
+                                <p class="price">$${p.price}.00</p>
+                            </div>
                         </div>
-                        <div>
-                            <small>${p.category}</small>
-                            <h6>${p.name}</h6>
-                            <p class="price">$${p.price}.00</p>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
 
-            // Attach event listeners to each new product card
-            matched.forEach(p => {
-                const card = resultsDiv.querySelector(`.product-card[data-product-id="${p.id}"]`);
-                if (card) attachProductEvents(card, p);
-            });
+                // Attach event listeners to each new product card
+                matched.forEach(p => {
+                    const card = resultsDiv.querySelector(`.product-card[data-product-id="${p.id}"]`);
+                    if (card) attachProductEvents(card, p);
+                });
+            }, 300);
         }
 
-        // Set up search input listeners
-        document.getElementById('searchButton').addEventListener('click', searchProducts);
-        document.getElementById('searchInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchProducts();
+        // Debounced search (300ms)
+        function debouncedSearch() {
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(searchProducts, 300);
+        }
+
+        // Clear all filters and search
+        function clearSearch() {
+            searchInput.value = '';
+            categoryFilter.value = 'all';
+            priceFilter.value = 'all';
+            clearBtn.style.display = 'none';
+            searchStats.textContent = '';
+            resultsDiv.innerHTML = '<p class="detail-info-platform" style="text-align:center;">🔍 Type a keyword to search products.</p>';
+            searchLoading.style.display = 'none';
+            searchInput.focus();
+        }
+
+        // Set up event listeners
+        searchButton.addEventListener('click', searchProducts);
+        searchInput.addEventListener('input', debouncedSearch);
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (debounceTimer) clearTimeout(debounceTimer);
+                searchProducts();
+            }
+        });
+        categoryFilter.addEventListener('change', debouncedSearch);
+        priceFilter.addEventListener('change', debouncedSearch);
+        clearBtn.addEventListener('click', clearSearch);
+
+        // Keyboard shortcut: Ctrl+K or / to focus search
+        document.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            if (!e.ctrlKey && !e.metaKey && e.key === '/' && document.activeElement !== searchInput && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                searchInput.focus();
+            }
         });
     </script>
 </body>
