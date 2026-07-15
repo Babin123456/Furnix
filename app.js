@@ -390,20 +390,98 @@ function isValidLuhn(digitsOnly) {
   return sum % 10 === 0;
 }
 
+function showFieldError(fieldId, message) {
+  const field = document.getElementById(fieldId);
+  const errorEl = document.getElementById(fieldId + "Error");
+  if (!field) return;
+  field.classList.add("input-error");
+  if (errorEl) {
+    errorEl.textContent = message;
+    errorEl.style.display = "block";
+  }
+}
+
+function clearFieldErrors() {
+  document.querySelectorAll(".field-error").forEach((el) => {
+    el.textContent = "";
+    el.style.display = "none";
+  });
+  document.querySelectorAll(".input-error").forEach((el) => {
+    el.classList.remove("input-error");
+  });
+}
+
 const placeOrderBtn = document.getElementById("placeOrderBtn");
 if (placeOrderBtn) {
   placeOrderBtn.addEventListener("click", () => {
+    clearFieldErrors();
+
     const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
     const email = document.getElementById("checkoutEmail").value.trim();
+    const phone = document.getElementById("phone").value.trim();
     const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const pincode = document.getElementById("pincode").value.trim();
     const payment = document.querySelector(
       'input[name="payment"]:checked',
     ).value;
 
-    if (!firstName || !email || !address) {
-      alert("Please fill in all required shipping details.");
-      return;
+    let hasError = false;
+
+    if (!firstName) {
+      showFieldError("firstName", "First name is required.");
+      if (!hasError) { document.getElementById("firstName").focus(); hasError = true; }
+    } else if (firstName.length < 2) {
+      showFieldError("firstName", "First name must be at least 2 characters.");
+      if (!hasError) { document.getElementById("firstName").focus(); hasError = true; }
     }
+    if (!lastName) {
+      showFieldError("lastName", "Last name is required.");
+      if (!hasError) { document.getElementById("lastName").focus(); hasError = true; }
+    } else if (lastName.length < 2) {
+      showFieldError("lastName", "Last name must be at least 2 characters.");
+      if (!hasError) { document.getElementById("lastName").focus(); hasError = true; }
+    }
+
+    if (!email) {
+      showFieldError("checkoutEmail", "Email address is required.");
+      if (!hasError) { document.getElementById("checkoutEmail").focus(); hasError = true; }
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFieldError("checkoutEmail", "Please enter a valid email address.");
+      if (!hasError) { document.getElementById("checkoutEmail").focus(); hasError = true; }
+    }
+
+    if (!phone) {
+      showFieldError("phone", "Phone number is required.");
+      if (!hasError) { document.getElementById("phone").focus(); hasError = true; }
+    } else if (!/^[\+\d\s\-()]{7,20}$/.test(phone)) {
+      showFieldError("phone", "Please enter a valid phone number.");
+      if (!hasError) { document.getElementById("phone").focus(); hasError = true; }
+    }
+
+    if (!address) {
+      showFieldError("address", "Street address is required.");
+      if (!hasError) { document.getElementById("address").focus(); hasError = true; }
+    }
+
+    if (!city) {
+      showFieldError("city", "City is required.");
+      if (!hasError) { document.getElementById("city").focus(); hasError = true; }
+    } else if (city.length < 2) {
+      showFieldError("city", "Please enter a valid city name.");
+      if (!hasError) { document.getElementById("city").focus(); hasError = true; }
+    }
+
+    if (!pincode) {
+      showFieldError("pincode", "Pincode is required.");
+      if (!hasError) { document.getElementById("pincode").focus(); hasError = true; }
+    } else if (!/^[0-9]{5,10}$/.test(pincode)) {
+      showFieldError("pincode", "Please enter a valid pincode (5-10 digits).");
+      if (!hasError) { document.getElementById("pincode").focus(); hasError = true; }
+    }
+
+    if (hasError) return;
     if (payment === "card") {
       const cardNumber = document.getElementById("cardNumber").value.trim();
       const expiry = document.getElementById("cardExpiry").value.trim();

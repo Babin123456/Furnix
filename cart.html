@@ -160,38 +160,47 @@
                             <h4 class="checkout-form-title">
                                 <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Shipping Details
                             </h4>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" id="firstName" class="form-input" placeholder="John" required>
+                            <form id="checkoutForm" novalidate>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" id="firstName" class="form-input" placeholder="John" autocomplete="given-name" pattern="[A-Za-zÀ-ÿ\-' ]{2,}" required>
+                                        <span class="field-error" id="firstNameError" role="alert"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" id="lastName" class="form-input" placeholder="Doe" autocomplete="family-name" pattern="[A-Za-zÀ-ÿ\-' ]{2,}" required>
+                                        <span class="field-error" id="lastNameError" role="alert"></span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" id="lastName" class="form-input" placeholder="Doe" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="checkoutEmail" class="form-label">Email Address</label>
-                                <input type="email" id="checkoutEmail" class="form-input" placeholder="johndoe@email.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="address" class="form-label">Street Address</label>
-                                <input type="text" id="address" class="form-input" placeholder="123 Main Street, Apt 4B" required>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="city" class="form-label">City</label>
-                                    <input type="text" id="city" class="form-input" placeholder="New Delhi" required>
+                                    <label for="checkoutEmail" class="form-label">Email Address</label>
+                                    <input type="email" id="checkoutEmail" class="form-input" placeholder="johndoe@email.com" autocomplete="email" required>
+                                    <span class="field-error" id="checkoutEmailError" role="alert"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pincode" class="form-label">Pincode</label>
-                                    <input type="text" id="pincode" class="form-input" placeholder="110001" required>
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210" autocomplete="tel" pattern="[\+\d\s\-()]{7,20}" required>
+                                    <span class="field-error" id="phoneError" role="alert"></span>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label for="address" class="form-label">Street Address</label>
+                                    <input type="text" id="address" class="form-input" placeholder="123 Main Street, Apt 4B" autocomplete="street-address" required>
+                                    <span class="field-error" id="addressError" role="alert"></span>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city" class="form-label">City</label>
+                                        <input type="text" id="city" class="form-input" placeholder="New Delhi" autocomplete="address-level2" pattern="[A-Za-zÀ-ÿ\-' .]{2,}" required>
+                                        <span class="field-error" id="cityError" role="alert"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pincode" class="form-label">Pincode</label>
+                                        <input type="text" id="pincode" class="form-input" placeholder="110001" autocomplete="postal-code" pattern="[0-9]{5,10}" inputmode="numeric" required>
+                                        <span class="field-error" id="pincodeError" role="alert"></span>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
                         <div class="checkout-block">
