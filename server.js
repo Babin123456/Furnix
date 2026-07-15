@@ -51,6 +51,19 @@ app.post('/api/contact', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use(express.static(__dirname));
+
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'The requested resource was not found.'
+  });
 });
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

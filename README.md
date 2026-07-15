@@ -74,10 +74,13 @@ It focuses on:
 ## 🛠️ Installation
 
 ```bash
-git clone https://github.com/your-username/Furnix-Neon.git
-cd Furnix-Neon
-open index.html
+git clone https://github.com/Babin123456/Furnix.git
+cd Furnix
+npm install
+npm start
 ```
+
+Open [http://localhost:5000](http://localhost:5000) to view the storefront. The contact form API is available at `/api/contact` from the same server.
 
 ## 📁 Project Structure
 
