@@ -3,10 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Shop Furnix modern furniture, lighting, decor, and handcrafted pieces designed for comfortable contemporary homes."
-    />
+    <meta name="description" content="Browse Furnix's complete collection of modern furniture including sofas, beds, tables, chairs, and storage solutions for every room in your home." />
+    <meta property="og:title" content="All Furniture - Furnix">
+    <meta property="og:description" content="Browse Furnix's complete collection of modern furniture including sofas, beds, tables, chairs, and storage solutions for every room in your home.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://furnix-neon.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#f1b555">
     <title>Furnix - All Furniture</title>
 
     <!-- CSS LINK -->
@@ -33,21 +36,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <script>
-      (function () {
-        try {
-          var savedTheme = localStorage.getItem("theme");
-          if (savedTheme === "dark" || savedTheme === "light") {
-            document.documentElement.setAttribute("data-theme", savedTheme);
-          } else if (
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-          ) {
-            document.documentElement.setAttribute("data-theme", "dark");
-          }
-        } catch (e) {}
-      })();
-    </script>
+      <script src="scripts/init-theme.js"></script>
   </head>
 
   <body>
@@ -282,7 +271,7 @@
           >
             <div class="product-image">
               <img
-                src="images/modern chair.png"
+                src="images/modern chair.webp"
                 alt="Modern Chair"
                 width="700"
                 height="846"
@@ -315,7 +304,7 @@
           >
             <div class="product-image">
               <img
-                src="images/lounge chair.png"
+                src="images/lounge chair.webp"
                 alt="Lounge Chair"
                 width="700"
                 height="871"
@@ -348,7 +337,7 @@
           >
             <div class="product-image">
               <img
-                src="images/side table.png"
+                src="images/side table.webp"
                 alt="Side Table"
                 width="700"
                 height="808"
@@ -381,7 +370,7 @@
           >
             <div class="product-image">
               <img
-                src="images/hanging lamp.png"
+                src="images/hanging lamp.webp"
                 alt="Aura Pendent Lamp"
                 width="700"
                 height="700"
@@ -414,7 +403,7 @@
           >
             <div class="product-image">
               <img
-                src="images/flower-vase.png"
+                src="images/flower-vase.webp"
                 alt="Flower Vase"
                 width="700"
                 height="846"
@@ -447,7 +436,7 @@
           >
             <div class="product-image">
               <img
-                src="images/bed.png"
+                src="images/bed.webp"
                 alt="Modern Bed"
                 width="1000"
                 height="418"
@@ -480,7 +469,7 @@
           >
             <div class="product-image">
               <img
-                src="images/sofa.png"
+                src="images/sofa.webp"
                 alt="Luxury Sofa"
                 width="900"
                 height="394"
@@ -528,78 +517,56 @@
                style="background:none; border:none; cursor:pointer;"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i
             ></button>
                 </form>
-          <ul class="footer-social-icon flex">
-            <li>
-              <a href="#" class="icon" aria-label="Facebook"
-                ><i class="fa-brands fa-facebook-f" aria-hidden="true"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#" class="icon" aria-label="X"
-                ><i class="fa-brands fa-x-twitter" aria-hidden="true"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#" class="icon" aria-label="Instagram"
-                ><i class="fa-brands fa-instagram" aria-hidden="true"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#" class="icon" aria-label="Pinterest"
-                ><i class="fa-brands fa-pinterest-p" aria-hidden="true"></i
-              ></a>
-            </li>
-          </ul>
+                <ul class="footer-social-icon flex">
+                    <li><a href="#" class="icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#" class="icon" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#" class="icon" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                    <li><a href="#" class="icon" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+            <div class="footer-wrapper">
+    <h5>collections</h5>
+    <ul>
+        <li><a href="collections.html" class="footer-link">Seating</a></li>
+        <li><a href="furniture.html" class="footer-link">Sofas</a></li>
+        <li><a href="furniture.html" class="footer-link">Lighting</a></li>
+        <li><a href="furniture.html" class="footer-link">Accessories</a></li>
+    </ul>
+</div>
+
+<div class="footer-wrapper">
+    <h5>Contact Us</h5>
+    <ul class="footer-contact-details">
+        <li class="contact">
+            <a href="tel:+91123456789" class="footer-link">+91 123 456 789</a>
+        </li>
+        <li class="contact">
+            <a href="mailto:Furnixhome@info.com" class="footer-link">Furnixhome@info.com</a>
+        </li>
+    </ul>
+</div>
+            <div class="footer-wrapper">
+                <h5>designers</h5>
+                <ul>
+                    <li><a href="designers.html" class="footer-link">John Oliver</a></li>
+                    <li><a href="designers.html" class="footer-link">Annie Lilt</a></li>
+                    <li><a href="designers.html" class="footer-link">Frank Daniel</a></li>
+                </ul>
+            </div>
+            <div class="footer-wrapper">
+                <h5>information</h5>
+                <ul>
+                    <li><a href="story.html" class="footer-link">our story</a></li>
+                    <li><a href="journal.html" class="footer-link">our journal</a></li>
+                    <li><a href="faq.html" class="footer-link">FAQ's</a></li>
+                    <li><a href="contact.html" class="footer-link">contact us</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-wrapper">
-          <h5>collections</h5>
-          <ul>
-            <li><a href="collections.html" class="footer-link">Seating</a></li>
-            <li><a href="furniture.html" class="footer-link">sofas</a></li>
-            <li><a href="furniture.html" class="footer-link">Lighting</a></li>
-            <li>
-              <a href="furniture.html" class="footer-link">Accessories</a>
-            </li>
-          </ul>
-          <ul class="footer-contact-details">
-            <li class="contact">
-              <a href="tel:+91123456789" class="footer-link">+91 123 456 789</a>
-            </li>
-            <li class="contact">
-              <a href="mailto:Furnixhome@info.com" class="footer-link"
-                >Furnixhome@info.com</a
-              >
-            </li>
-          </ul>
+    
+        <div class="copy-right mt-3">
+            <p>&copy; 2025 copyright furnix homes. powered by <span><i>janavi pandole</i></span></p>
         </div>
-        <div class="footer-wrapper">
-          <h5>designers</h5>
-          <ul>
-            <li>
-              <a href="designers.html" class="footer-link">John Oliver</a>
-            </li>
-            <li><a href="designers.html" class="footer-link">Annie Lilt</a></li>
-            <li>
-              <a href="designers.html" class="footer-link">Frank Daniel</a>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-wrapper">
-          <h5>information</h5>
-          <ul>
-            <li><a href="story.html" class="footer-link">our story</a></li>
-            <li><a href="journal.html" class="footer-link">our journal</a></li>
-            <li><a href="faq.html" class="footer-link">FAQ's</a></li>
-            <li><a href="contact.html" class="footer-link">contact us</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="copy-right mt-3">
-        <p>
-          &copy; 2025 copyright furnix homes. powered by
-          <span><i>janavi pandole</i></span>
-        </p>
-      </div>
     </footer>
     <button id="topBtn" onclick="scrollToTop()">↑ Top</button>
     <script src="app.js"></script>
