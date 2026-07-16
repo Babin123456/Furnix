@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Furnix offers sleek and modern furniture and interior solutions. Explore our premium collection for a stylish home.">
+    <meta name="description" content="Furnix offers sleek and modern furniture and interior solutions. Explore our premium collection of contemporary furniture, lighting, and decor for a stylish home.">
+    <meta property="og:title" content="Furnix - Modern Furniture & Interior Solutions">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://furnix-neon.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#f1b555">
     <title>Furnix - Modern Furniture & Interior Solutions</title>
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='15' y='40' width='70' height='30' rx='5' fill='%23b8860b'/%3E%3Crect x='10' y='70' width='20' height='20' rx='3' fill='%238B4513'/%3E%3Crect x='70' y='70' width='20' height='20' rx='3' fill='%238B4513'/%3E%3Crect x='35' y='20' width='30' height='25' rx='8' fill='%23b8860b'/%3E%3C/svg%3E">
@@ -26,18 +32,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="manifest" href="site.webmanifest">
 
-<script>
-    (function() {
-        try {
-            var savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark' || savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        } catch (e) {}
-    })();
-</script>
+<script src="scripts/init-theme.js"></script>
 </head>
 
 <body>
@@ -452,13 +447,13 @@
     </main>
 
     <!-- FOOTER PART -->
-            <footer id="contact" class="footer-image">
+             <footer id="contact" class="footer-image">
         <div class="wrapper p-block flex g-one-half">
             <div class="footer-wrapper">
                 <a href="index.html" class="logo">Furnix.</a>
                 <h3>sign up to receive 10% off <br> on your first order</h3>
                 <form class="input-container" onsubmit="event.preventDefault(); if(typeof showToast === 'function') showToast('Subscribed to newsletter!', 'success'); else alert('Subscribed to newsletter!');">
-                    <input type="email" name="email" id="footerEmail" placeholder="Enter your email.." autocomplete="email" aria-label="Email address for newsletter" required>
+                    <input type="email" name="email" id="footerEmail" placeholder="Enter your email.." autocomplete="off" required>
                     <button type="submit" class="simple-icon" aria-label="Open details" style="background:none; border:none; cursor:pointer;"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
                 </form>
                 <ul class="footer-social-icon flex">
@@ -469,18 +464,26 @@
                 </ul>
             </div>
             <div class="footer-wrapper">
-                <h5>collections</h5>
-                <ul>
-                    <li><a href="collections.html" class="footer-link">Seating</a></li>
-                    <li><a href="furniture.html" class="footer-link">sofas</a></li>
-                    <li><a href="furniture.html" class="footer-link">Lighting</a></li>
-                    <li><a href="furniture.html" class="footer-link">Accessories</a></li>
-                </ul>
-                <ul class="footer-contact-details">
-                    <li class="contact"><a href="tel:+91123456789" class="footer-link">+91 123 456 789</a></li>
-                    <li class="contact"><a href="mailto:Furnixhome@info.com" class="footer-link">Furnixhome@info.com</a></li>
-                </ul>
-            </div>
+    <h5>collections</h5>
+    <ul>
+        <li><a href="collections.html" class="footer-link">Seating</a></li>
+        <li><a href="furniture.html" class="footer-link">Sofas</a></li>
+        <li><a href="furniture.html" class="footer-link">Lighting</a></li>
+        <li><a href="furniture.html" class="footer-link">Accessories</a></li>
+    </ul>
+</div>
+
+<div class="footer-wrapper">
+    <h5>Contact Us</h5>
+    <ul class="footer-contact-details">
+        <li class="contact">
+            <a href="tel:+91123456789" class="footer-link">+91 123 456 789</a>
+        </li>
+        <li class="contact">
+            <a href="mailto:Furnixhome@info.com" class="footer-link">Furnixhome@info.com</a>
+        </li>
+    </ul>
+</div>
             <div class="footer-wrapper">
                 <h5>designers</h5>
                 <ul>
@@ -499,6 +502,7 @@
                 </ul>
             </div>
         </div>
+    
         <div class="copy-right mt-3">
             <p>&copy; 2025 copyright furnix homes. powered by <span><i>janavi pandole</i></span></p>
         </div>
