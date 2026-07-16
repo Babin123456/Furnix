@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to your Furnix account to access your wishlist, track orders, and enjoy a personalized shopping experience for modern furniture.">
+    <meta property="og:title" content="Login - Furnix">
+    <meta property="og:description" content="Sign in to your Furnix account to access your wishlist, track orders, and enjoy a personalized shopping experience for modern furniture.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://furnix-neon.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#f1b555">
     <title>Login - Furnix</title>
 
     <link rel="stylesheet" href="style.css">
@@ -258,18 +265,7 @@
         }
     </style>
 
-<script>
-    (function() {
-        try {
-            var savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark' || savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        } catch (e) {}
-    })();
-</script>
+<script src="scripts/init-theme.js"></script>
 </head>
 <body>
 
@@ -284,12 +280,12 @@
         <form id="loginForm">
             <div class="input-group">
                 <label for="loginEmail">Email Address</label>
-                <input type="email" id="loginEmail" placeholder="Enter your email" required autocomplete="email">
+                <input type="email" id="loginEmail" placeholder="Enter your email" required autocomplete="email" data-validate="required|email:Please enter a valid email">
             </div>
 
             <div class="input-group">
                 <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+                <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password" data-validate="required|minLength:6:Password must be at least 6 characters">
             </div>
 
             <div class="options">
@@ -320,6 +316,7 @@
     </div>
 </div>
 
+<script src="form-validation.js"></script>
 <script type="module" src="login-auth.js"></script>
 
 </body>
