@@ -671,7 +671,6 @@ function setupProductCards() {
 }
 /* ============================================
    PRODUCT SORTING + FILTERING
-============================================ */
 
 function initProductSortAndFilter() {
   const grid = document.getElementById("furniture-grid");
