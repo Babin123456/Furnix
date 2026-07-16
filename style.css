@@ -1220,18 +1220,15 @@ small {
 }
 
 .input-icon {
-  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  left: 18px;
-  top: 50%;
-
-  transform: translateY(-50%);
+  width: 20px;
+  margin-right: 10px;
 
   color: #b58b64;
-
   font-size: 16px;
-
-  pointer-events: none;
 }
 input:focus {
   border-color: #c77b30;
@@ -1271,9 +1268,7 @@ input:focus {
 
 .form-input {
   width: 100%;
-
-  padding: 14px 18px 14px 55px;
-
+  padding: 14px 18px;
   border-radius: 10px;
 }
 .form-group {
@@ -1281,8 +1276,12 @@ input:focus {
 }
 
 .form-label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
   margin-bottom: 0.5rem;
+
   font-weight: 500;
   color: var(--back);
 }
@@ -1375,6 +1374,7 @@ input:focus {
 }
 .newsletter-input {
   background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: white;
@@ -1955,6 +1955,7 @@ input:focus {
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
+  -webkit-backdrop-filter: blur(2.6rem);
   backdrop-filter: blur(2.6rem);
   background-attachment: scroll;
   isolation: isolate;
@@ -2022,19 +2023,38 @@ input:focus {
 }
 
 .footer-social-icon {
-  margin-top: 2rem;
-  gap: 1rem;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 24px;
+    padding: 0;
+    list-style: none;
 }
 
-.footer-social-icon i {
-  color: var(--white);
-  transition: all 0.2s ease-in;
+.footer-social-icon .icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    color: #fff;
+    font-size: 18px;
+
+    transition: all 0.3s ease;
 }
 
-.footer-social-icon .icon i:hover {
-  color: rgba(240, 240, 240, 0.6);
-  font-size: 1.3rem;
+.footer-social-icon .icon:hover {
+    background: #d98b36;
+    color: #fff;
+    transform: translateY(-4px);
+    border-color: #d98b36;
 }
 
 .footer-image .flex {
