@@ -671,7 +671,6 @@ function setupProductCards() {
 }
 /* ============================================
    PRODUCT SORTING + FILTERING
-============================================ */
 
 function initProductSortAndFilter() {
   const grid = document.getElementById("furniture-grid");
@@ -968,16 +967,38 @@ document.addEventListener("DOMContentLoaded", () => {
 // Product Quick View Modal (Issue #186)
 document.addEventListener("DOMContentLoaded", () => {
     const productCards = document.querySelectorAll('.product-image, .new-product-img');
-    
+
+    function trapFocus(element) {
+        const focusable = element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        element.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    last.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    first.focus();
+                    e.preventDefault();
+                }
+            }
+        });
+    }
+
     productCards.forEach(card => {
         if (card.querySelector('.quick-view-btn')) return;
 
         const qvBtn = document.createElement('button');
         qvBtn.className = 'quick-view-btn';
-        qvBtn.innerHTML = '<i class="fa-solid fa-eye"></i>';
+        qvBtn.innerHTML = '<i class="fa-solid fa-eye" aria-hidden="true"></i>';
         qvBtn.title = "Quick View";
+        qvBtn.setAttribute('aria-label', 'Quick view product details');
         qvBtn.style.cssText = 'position: absolute; top: 10px; left: 10px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.95); border: none; cursor: pointer; color: #c77b30; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); opacity: 0; transform: translateY(-10px); transition: all 0.3s ease; z-index: 10;';
-        
+
         card.style.position = 'relative';
         card.appendChild(qvBtn);
 
@@ -988,6 +1009,17 @@ document.addEventListener("DOMContentLoaded", () => {
         card.addEventListener('mouseleave', () => {
             qvBtn.style.opacity = '0';
             qvBtn.style.transform = 'translateY(-10px)';
+        });
+
+        card.addEventListener('focusin', () => {
+            qvBtn.style.opacity = '1';
+            qvBtn.style.transform = 'translateY(0)';
+        });
+        card.addEventListener('focusout', (e) => {
+            if (!card.contains(e.relatedTarget)) {
+                qvBtn.style.opacity = '0';
+                qvBtn.style.transform = 'translateY(-10px)';
+            }
         });
 
         qvBtn.addEventListener('click', (e) => {
@@ -1004,28 +1036,30 @@ document.addEventListener("DOMContentLoaded", () => {
             const price = priceEl ? priceEl.innerText : '$199.00';
 
             const modalOverlay = document.createElement('div');
+            modalOverlay.setAttribute('role', 'dialog');
+            modalOverlay.setAttribute('aria-modal', 'true');
+            modalOverlay.setAttribute('aria-label', 'Product quick view');
             modalOverlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 999999; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(8px); padding: 20px; box-sizing: border-box;';
 
             const modalContent = document.createElement('div');
             modalContent.style.cssText = 'background: var(--card, #fff); color: var(--text, #111); width: 100%; max-width: 900px; border-radius: 20px; display: flex; flex-direction: row; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.3); transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; flex-wrap: wrap;';
 
             const closeBtn = document.createElement('button');
-            closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            closeBtn.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+            closeBtn.setAttribute('aria-label', 'Close quick view');
             closeBtn.style.cssText = 'position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.05); width: 40px; height: 40px; border-radius: 50%; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text, #111); z-index: 10; display: flex; justify-content: center; align-items: center; transition: 0.2s;';
-            closeBtn.onmouseover = () => closeBtn.style.background = 'rgba(0,0,0,0.1)';
-            closeBtn.onmouseout = () => closeBtn.style.background = 'rgba(0,0,0,0.05)';
 
             modalContent.innerHTML = `
                 <div style="flex: 1; min-width: 300px; background: var(--bg, #f9f9f9); display: flex; justify-content: center; align-items: center; padding: 40px;">
-                    <img src="${imgSrc}" style="max-width: 100%; max-height: 450px; object-fit: contain; mix-blend-mode: multiply; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15));">
+                    <img src="${imgSrc}" alt="${title}" style="max-width: 100%; max-height: 450px; object-fit: contain; mix-blend-mode: multiply; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15));">
                 </div>
                 <div style="flex: 1.2; min-width: 300px; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; font-family: 'Jost', sans-serif;">
                     <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: #c77b30; font-weight: 600; margin-bottom: 12px; display: inline-block;">Quick Look</span>
-                    <h2 style="font-size: 2.2rem; margin-bottom: 15px; line-height: 1.2; font-weight: 500;">${title}</h2>
+                    <h2 id="qv-modal-title" style="font-size: 2.2rem; margin-bottom: 15px; line-height: 1.2; font-weight: 500;">${title}</h2>
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
                         <h3 style="font-size: 1.8rem; font-weight: 600; color: #c77b30; margin: 0;">${price}</h3>
                         <div style="color: #f6c15a; font-size: 0.9rem;">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star-half-stroke" aria-hidden="true"></i>
                             <span style="color: var(--text-muted, #888); margin-left: 5px;">(4.8)</span>
                         </div>
                     </div>
@@ -1033,33 +1067,43 @@ document.addEventListener("DOMContentLoaded", () => {
                         Experience premium craftsmanship and modern design. This piece seamlessly blends functionality with aesthetic appeal, making it a perfect addition to any contemporary living space.
                     </p>
                     <ul style="list-style: none; padding: 0; margin: 0 0 35px 0; display: flex; gap: 25px; font-size: 0.95rem; color: var(--text, #333); font-weight: 500;">
-                        <li><i class="fa-solid fa-circle-check" style="color: #256029; margin-right: 6px;"></i> In Stock</li>
-                        <li><i class="fa-solid fa-truck-fast" style="color: #c77b30; margin-right: 6px;"></i> Fast Delivery</li>
+                        <li><i class="fa-solid fa-circle-check" style="color: #256029; margin-right: 6px;" aria-hidden="true"></i> In Stock</li>
+                        <li><i class="fa-solid fa-truck-fast" style="color: #c77b30; margin-right: 6px;" aria-hidden="true"></i> Fast Delivery</li>
                     </ul>
                     <div style="display: flex; gap: 15px;">
-                        <button class="btn brown-bg" style="flex: 1; padding: 16px; font-size: 1.05rem; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-radius: 8px; background: linear-gradient(135deg, #f6c15a, #d98b36); color: #111; transition: 0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Add to Cart</button>
-                        <button style="width: 55px; height: 55px; border-radius: 8px; border: 1px solid var(--border, #ddd); background: transparent; color: var(--text, #333); font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center;" onmouseover="this.style.borderColor='#c77b30'; this.style.color='#c77b30'" onmouseout="this.style.borderColor='var(--border, #ddd)'; this.style.color='var(--text, #333)'"><i class="fa-regular fa-heart"></i></button>
+                        <button class="btn brown-bg add-cart-modal-btn" style="flex: 1; padding: 16px; font-size: 1.05rem; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-radius: 8px; background: linear-gradient(135deg, #f6c15a, #d98b36); color: #111; transition: 0.3s;">Add to Cart</button>
+                        <button class="qv-wishlist-btn" style="width: 55px; height: 55px; border-radius: 8px; border: 1px solid var(--border, #ddd); background: transparent; color: var(--text, #333); font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center;"><i class="fa-regular fa-heart" aria-hidden="true"></i></button>
                     </div>
                 </div>
             `;
 
-            modalContent.appendChild(closeBtn);
+            modalContent.prepend(closeBtn);
             modalOverlay.appendChild(modalContent);
             document.body.appendChild(modalOverlay);
 
             requestAnimationFrame(() => {
                 modalOverlay.style.opacity = '1';
                 modalContent.style.transform = 'scale(1) translateY(0)';
+                closeBtn.focus();
             });
+
+            modalOverlay.setAttribute('aria-labelledby', 'qv-modal-title');
+            trapFocus(modalOverlay);
 
             const close = () => {
                 modalOverlay.style.opacity = '0';
                 modalContent.style.transform = 'scale(0.95) translateY(20px)';
-                setTimeout(() => modalOverlay.remove(), 300);
+                setTimeout(() => {
+                    modalOverlay.remove();
+                    qvBtn.focus();
+                }, 300);
             };
 
-            closeBtn.onclick = close;
-            modalOverlay.onclick = (ev) => { if(ev.target === modalOverlay) close(); };
+            closeBtn.addEventListener('click', close);
+            closeBtn.addEventListener('mouseover', () => { closeBtn.style.background = 'rgba(0,0,0,0.1)'; });
+            closeBtn.addEventListener('mouseout', () => { closeBtn.style.background = 'rgba(0,0,0,0.05)'; });
+            modalOverlay.addEventListener('click', (ev) => { if(ev.target === modalOverlay) close(); });
+            modalOverlay.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') close(); });
         });
     });
 });
