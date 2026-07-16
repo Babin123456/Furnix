@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your Furnix account to save favorites, track orders, and get exclusive access to new collections and designer furniture releases.">
+    <meta property="og:title" content="Sign Up - Furnix">
+    <meta property="og:description" content="Create your Furnix account to save favorites, track orders, and get exclusive access to new collections and designer furniture releases.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://furnix-neon.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#f1b555">
     <title>Sign Up - Furnix</title>
 
     <link rel="stylesheet" href="style.css">
@@ -256,18 +263,7 @@
         }
     </style>
 
-<script>
-    (function() {
-        try {
-            var savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark' || savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        } catch (e) {}
-    })();
-</script>
+<script src="scripts/init-theme.js"></script>
 </head>
 <body>
 
@@ -282,18 +278,23 @@
         <form id="signupForm">
             <div class="input-group">
                 <label for="signupName">Full Name</label>
-                <input type="text" id="signupName" placeholder="Enter your name" required autocomplete="name">
+                <input type="text" id="signupName" placeholder="Enter your name" required autocomplete="name" data-validate="required">
             </div>
 
             <div class="input-group">
                 <label for="signupEmail">Email Address</label>
-                <input type="email" id="signupEmail" placeholder="Enter your email" required autocomplete="email">
+                <input type="email" id="signupEmail" placeholder="Enter your email" required autocomplete="email" data-validate="required|email:Please enter a valid email">
             </div>
 
             <div class="input-group">
                 <label for="signupPassword">Password</label>
-                <input type="password" id="signupPassword" placeholder="Create a password" required autocomplete="new-password" minlength="6">
+                <input type="password" id="signupPassword" placeholder="Create a password" required autocomplete="new-password" minlength="6" data-validate="required|minLength:6:Password must be at least 6 characters">
                 <p class="input-hint">At least 6 characters.</p>
+            </div>
+
+            <div class="input-group">
+                <label for="signupConfirmPassword">Confirm Password</label>
+                <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required autocomplete="new-password" data-validate="required|passwordMatch:signupPassword:Passwords do not match">
             </div>
 
             <button type="submit" class="login-btn" id="signupSubmitBtn">
@@ -316,6 +317,7 @@
     </div>
 </div>
 
+<script src="form-validation.js"></script>
 <script type="module" src="signup-auth.js"></script>
 
 </body>
