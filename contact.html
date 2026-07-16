@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shop Furnix modern furniture, lighting, decor, and handcrafted pieces designed for comfortable contemporary homes.">
+    <meta name="description" content="Get in touch with the Furnix team. Contact us for inquiries about modern furniture, custom orders, or visit our showroom for personalized assistance.">
+    <meta property="og:title" content="Contact Us - Furnix">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://furnix-neon.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#f1b555">
     <title>Furnix - Contact Us</title>
         <!-- Fonts added for consistency -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,18 +22,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
-<script>
-    (function() {
-        try {
-            var savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark' || savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        } catch (e) {}
-    })();
-</script>
+<script src="scripts/init-theme.js"></script>
 </head>
 <body>
             <header>
@@ -117,9 +112,10 @@
                    <form method="POST">
 
     <div class="form-group">
-        <label for="name" class="form-label">Full Name</label>
-        <div class="input-wrapper">
+        <label for="name" class="form-label">
             <i class="fa-solid fa-user input-icon" aria-hidden="true"></i>
+            Full Name</label>
+        <div class="input-wrapper">
             <input
                 type="text"
                 id="name"
@@ -128,14 +124,16 @@
                 placeholder="Enter your full name"
                 required
                 autocomplete="name"
+                data-validate="required"
             >
         </div>
     </div>
 
     <div class="form-group">
-        <label for="email" class="form-label">Email Address</label>
-        <div class="input-wrapper">
+        <label for="email" class="form-label">
             <i class="fa-solid fa-envelope input-icon" aria-hidden="true"></i>
+            Email Address</label>
+        <div class="input-wrapper">
             <input
                 type="email"
                 id="email"
@@ -144,14 +142,16 @@
                 placeholder="Enter your email"
                 required
                 autocomplete="email"
+                data-validate="required|email:Please enter a valid email"
             >
         </div>
     </div>
 
     <div class="form-group">
-        <label for="subject" class="form-label">Subject</label>
-        <div class="input-wrapper">
+        <label for="subject" class="form-label">
             <i class="fa-solid fa-pen input-icon" aria-hidden="true"></i>
+            Subject</label>
+        <div class="input-wrapper">
             <input
                 type="text"
                 id="subject"
@@ -159,14 +159,16 @@
                 class="form-input"
                 placeholder="Subject"
                 required
+                data-validate="required"
             >
         </div>
     </div>
 
     <div class="form-group">
-        <label for="message" class="form-label">Message</label>
-        <div class="input-wrapper">
+        <label for="message" class="form-label">
             <i class="fa-solid fa-comment input-icon" aria-hidden="true"></i>
+            Message</label>
+        <div class="input-wrapper">
             <textarea
                 id="message"
                 name="message"
@@ -174,6 +176,7 @@
                 placeholder="Write your message"
                 rows="5"
                 required
+                data-validate="required|minLength:10:Message must be at least 10 characters"
             ></textarea>
         </div>
     </div>
@@ -189,7 +192,7 @@
         </section>
     </main>
 
-            <footer id="contact" class="footer-image">
+             <footer id="contact" class="footer-image">
         <div class="wrapper p-block flex g-one-half">
             <div class="footer-wrapper">
                 <a href="index.html" class="logo">Furnix.</a>
@@ -206,31 +209,26 @@
                 </ul>
             </div>
             <div class="footer-wrapper">
-                <h5>collections</h5>
-                <ul>
-                    <li><a href="collections.html" class="footer-link">Seating</a></li>
-                    <li><a href="furniture.html" class="footer-link">sofas</a></li>
-                    <li><a href="furniture.html" class="footer-link">Lighting</a></li>
-                    <li><a href="furniture.html" class="footer-link">Accessories</a></li>
-                </ul>
-                <ul class="footer-contact-details">
+    <h5>collections</h5>
+    <ul>
+        <li><a href="collections.html" class="footer-link">Seating</a></li>
+        <li><a href="furniture.html" class="footer-link">Sofas</a></li>
+        <li><a href="furniture.html" class="footer-link">Lighting</a></li>
+        <li><a href="furniture.html" class="footer-link">Accessories</a></li>
+    </ul>
+</div>
 
-    <li class="contact">
-        <a href="tel:+91123456789" class="footer-link">
-            <i class="fa-solid fa-phone"></i>
-            <span>+91 123 456 789</span>
-        </a>
-    </li>
-
-    <li class="contact">
-        <a href="mailto:Furnixhome@info.com" class="footer-link">
-            <i class="fa-solid fa-envelope"></i>
-            <span>Furnixhome@info.com</span>
-        </a>
-    </li>
-
-</ul>
-            </div>
+<div class="footer-wrapper">
+    <h5>Contact Us</h5>
+    <ul class="footer-contact-details">
+        <li class="contact">
+            <a href="tel:+91123456789" class="footer-link">+91 123 456 789</a>
+        </li>
+        <li class="contact">
+            <a href="mailto:Furnixhome@info.com" class="footer-link">Furnixhome@info.com</a>
+        </li>
+    </ul>
+</div>
             <div class="footer-wrapper">
                 <h5>designers</h5>
                 <ul>
@@ -249,12 +247,14 @@
                 </ul>
             </div>
         </div>
+    
         <div class="copy-right mt-3">
             <p>&copy; 2025 copyright furnix homes. powered by <span><i>janavi pandole</i></span></p>
         </div>
     </footer>
     <button id="topBtn" onclick="scrollToTop()">↑ Top</button>
     <script src="app.js"></script>
+    <script src="form-validation.js"></script>
     <script type="module" src="auth.js"></script>
 </body>
 </html>
