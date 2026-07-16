@@ -2720,3 +2720,15 @@ a:focus-visible {
 .favorite-icon:hover, .favorite-icon:focus {
     color: var(--golden-hour) !important;
 }
+
+.product-card:focus-within .quick-view-btn,
+.new-product:focus-within .quick-view-btn,
+.product-image:focus-within .quick-view-btn {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.quick-view-btn:focus-visible {
+    outline: 2px solid #c77b30;
+    outline-offset: 2px;
+}
