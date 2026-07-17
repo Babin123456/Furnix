@@ -911,41 +911,7 @@ function shareProduct(title, urlEnding) {
 }
 
 
-const themeToggleBtn = document.getElementById("theme-toggle");
 
-if (themeToggleBtn) {
-  themeToggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-
-    if (document.body.classList.contains("dark-mode")) {
-      localStorage.setItem("theme", "dark");
-    } else {
-      localStorage.setItem("theme", "light");
-    }
-  });
-}
-let topBtn = document.getElementById("topBtn");
-
-// show button when scrolling
-window.onscroll = function () {
-  if (!topBtn) return;
-  if (document.documentElement.scrollTop > 100) {
-    topBtn.style.display = "block";
-  } else {
-    topBtn.style.display = "none";
-  }
-};
-
-// scroll to top function
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}
-if (topBtn) {
-  topBtn.addEventListener("click", scrollToTop);
-}
 /* ---- THEME TOGGLE LOGIC ---- */
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
