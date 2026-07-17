@@ -1,2 +1,8 @@
-node_modules/\\
-Furnix-main/\\
+node_modules/
+Furnix-main/
+.vscode/
+submissions/
+.DS_Store
+*.log
+.env
+.env.local

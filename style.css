@@ -2722,6 +2722,25 @@ span,
 }
 
 
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 10000;
+  padding: 1rem 1.5rem;
+  background: var(--golden-hour);
+  color: #111;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 0.5rem 0;
+  transition: top 0.2s;
+}
+.skip-to-content:focus {
+  top: 0;
+  outline: 3px solid var(--antique-brown);
+  outline-offset: 2px;
+}
+
 /* Accessibility Improvements for Interactive Icons (Issue #105) */
 .icon:focus-visible, 
 .simple-icon:focus-visible, 
