@@ -81,24 +81,44 @@
               </div>
   
               <div class="faq-list mt-3">
-                  <div class="faq-card">
-                      <h5>What is your return policy?</h5>
-                      <p class="detail-info-platform">We offer a 30-day return window for all our standard furniture pieces. If you are not completely satisfied, you can return the item in its original packaging for a full refund, minus standard return shipping costs.</p>
+                  <div class="faq-card accordion-item">
+                      <button class="accordion-header" aria-expanded="false" aria-controls="faq1">
+                          <h5>What is your return policy?</h5>
+                          <span class="accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                      </button>
+                      <div id="faq1" class="accordion-content">
+                          <p class="detail-info-platform">We offer a 30-day return window for all our standard furniture pieces. If you are not completely satisfied, you can return the item in its original packaging for a full refund, minus standard return shipping costs.</p>
+                      </div>
                   </div>
   
-                  <div class="faq-card">
-                      <h5>Do you offer international shipping?</h5>
-                      <p class="detail-info-platform">Currently, we provide fast and free shipping within the continental United States and Canada on orders over $150. We are actively expanding our logistics network to support global orders in the near future.</p>
+                  <div class="faq-card accordion-item">
+                      <button class="accordion-header" aria-expanded="false" aria-controls="faq2">
+                          <h5>Do you offer international shipping?</h5>
+                          <span class="accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                      </button>
+                      <div id="faq2" class="accordion-content">
+                          <p class="detail-info-platform">Currently, we provide fast and free shipping within the continental United States and Canada on orders over $150. We are actively expanding our logistics network to support global orders in the near future.</p>
+                      </div>
                   </div>
   
-                  <div class="faq-card">
-                      <h5>How do I maintain my wooden furniture?</h5>
-                      <p class="detail-info-platform">To maintain the premium finish, simply wipe the surface with a soft, slightly damp cloth. Avoid harsh chemical cleaners and always place coasters under hot or wet items to prevent water rings and heat damage over time.</p>
+                  <div class="faq-card accordion-item">
+                      <button class="accordion-header" aria-expanded="false" aria-controls="faq3">
+                          <h5>How do I maintain my wooden furniture?</h5>
+                          <span class="accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                      </button>
+                      <div id="faq3" class="accordion-content">
+                          <p class="detail-info-platform">To maintain the premium finish, simply wipe the surface with a soft, slightly damp cloth. Avoid harsh chemical cleaners and always place coasters under hot or wet items to prevent water rings and heat damage over time.</p>
+                      </div>
                   </div>
   
-                  <div class="faq-card">
-                      <h5>Are your materials sustainably sourced?</h5>
-                      <p class="detail-info-platform">Absolutely. We are deeply committed to environmental responsibility. All our wood is FSC-certified, and our upholstery fabrics are woven from organic or recycled fibers wherever possible.</p>
+                  <div class="faq-card accordion-item">
+                      <button class="accordion-header" aria-expanded="false" aria-controls="faq4">
+                          <h5>Are your materials sustainably sourced?</h5>
+                          <span class="accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                      </button>
+                      <div id="faq4" class="accordion-content">
+                          <p class="detail-info-platform">Absolutely. We are deeply committed to environmental responsibility. All our wood is FSC-certified, and our upholstery fabrics are woven from organic or recycled fibers wherever possible.</p>
+                      </div>
                   </div>
               </div>
               
@@ -174,5 +194,25 @@
     <script src="app.js"></script>
     <script src="toast.js"></script>
     <script type="module" src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headers = document.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const isExpanded = header.getAttribute('aria-expanded') === 'true';
+                    
+                    // Close others
+                    headers.forEach(h => {
+                        h.setAttribute('aria-expanded', 'false');
+                    });
+
+                    // Toggle current
+                    if (!isExpanded) {
+                        header.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
