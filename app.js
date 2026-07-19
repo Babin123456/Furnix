@@ -678,6 +678,7 @@ function initProductSortAndFilter() {
   const categoryFilter = document.getElementById("filter-category");
   const priceFilter = document.getElementById("filter-price");
   const availabilityFilter = document.getElementById("filter-availability");
+  const searchInput = document.getElementById("search-products");
   const resetBtn = document.getElementById("reset-product-filters");
   const resultsCount = document.getElementById("product-results-count");
   const noResults = document.getElementById("product-no-results");
@@ -769,18 +770,22 @@ function initProductSortAndFilter() {
     const selectedPrice = priceFilter.value;
     const selectedAvailability = availabilityFilter.value;
     const selectedSort = sortSelect.value;
+    const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
     const filteredCards = productCards.filter((card) => {
       const category = getProductCategory(card).toLowerCase();
       const price = getProductPrice(card);
       const availability = card.dataset.availability || "in-stock";
+      const title = card.querySelector("h6")?.innerText.toLowerCase() || "";
+      const desc = card.querySelector(".product-desc")?.innerText.toLowerCase() || "";
 
       const categoryMatch = !selectedCategory || category === selectedCategory;
       const priceMatch = matchesPriceRange(price, selectedPrice);
       const availabilityMatch =
         !selectedAvailability || availability === selectedAvailability;
+      const searchMatch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery);
 
-      return categoryMatch && priceMatch && availabilityMatch;
+      return categoryMatch && priceMatch && availabilityMatch && searchMatch;
     });
 
     productCards.forEach((card) => {
@@ -810,6 +815,9 @@ function initProductSortAndFilter() {
       control.addEventListener("change", applyProductControls);
     },
   );
+  if (searchInput) {
+    searchInput.addEventListener("input", applyProductControls);
+  }
 
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
@@ -817,6 +825,7 @@ function initProductSortAndFilter() {
       categoryFilter.value = "";
       priceFilter.value = "";
       availabilityFilter.value = "";
+      if (searchInput) searchInput.value = "";
       applyProductControls();
     });
   }
