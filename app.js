@@ -1107,3 +1107,44 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// Lazy Loading & Skeleton Observer
+document.addEventListener("DOMContentLoaded", () => {
+  const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+  
+  lazyImages.forEach(img => {
+    img.classList.add('lazy-image-fade');
+    const parent = img.closest('.product-image');
+    if (parent) {
+      parent.classList.add('skeleton-loader');
+    }
+    
+    if (img.complete) {
+      img.classList.add('loaded');
+      if (parent) parent.classList.remove('skeleton-loader');
+    } else {
+      img.addEventListener('load', () => {
+        img.classList.add('loaded');
+        if (parent) parent.classList.remove('skeleton-loader');
+      });
+    }
+  });
+
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.complete) {
+             img.classList.add('loaded');
+          }
+          observer.unobserve(img);
+        }
+      });
+    });
+
+    lazyImages.forEach(img => {
+      imageObserver.observe(img);
+    });
+  }
+});
