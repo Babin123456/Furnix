@@ -1151,10 +1151,10 @@ small {
 }
 
 .faq-card {
-  background: #fafafa;
+  background: var(--card);
   padding: 1.5rem;
   border-radius: 12px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border);
   transition: 0.3s ease-in-out;
 }
 
@@ -1162,10 +1162,51 @@ small {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.faq-card h5 {
-  margin-bottom: 0.8rem;
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.accordion-header h5 {
+  margin-bottom: 0;
   font-size: 1.1rem;
-  color: var(--back);
+  color: var(--text);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.accordion-icon {
+  transition: transform 0.3s ease;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.accordion-header[aria-expanded="true"] .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease, margin-top 0.3s ease;
+  overflow: hidden;
+}
+
+.accordion-content p {
+  min-height: 0;
+  margin: 0;
+}
+
+.accordion-header[aria-expanded="true"] + .accordion-content {
+  grid-template-rows: 1fr;
+  margin-top: 1rem;
 }
 
 .faq-support {
