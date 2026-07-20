@@ -245,13 +245,17 @@ function renderCartPage() {
   });
 
   listEl.querySelectorAll(".cart-remove-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      let cart = getCart().filter((i) => String(i.id) !== String(btn.dataset.id));
-      saveCart(cart);
-      updateCartBadge(); // ✅ update badge on remove
-      renderCartPage();
-    });
+  btn.addEventListener("click", () => {
+    const removed = getCart().find((i) => String(i.id) === String(btn.dataset.id));
+    let cart = getCart().filter((i) => String(i.id) !== String(btn.dataset.id));
+    saveCart(cart);
+    updateCartBadge(); // ✅ update badge on remove
+
+    if (removed) showToast(`${removed.name} removed from cart`, "info");
+
+    renderCartPage();
   });
+});
 
   updateCartSummary();
   updateCartBadge(); // ✅ always sync badge after render
@@ -543,13 +547,17 @@ function renderWishlistPage() {
   });
 
   grid.querySelectorAll(".wishlist-remove-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      let wishlist = getWishlist().filter((i) => String(i.id) !== String(btn.dataset.id));
-      saveWishlist(wishlist);
-      updateWishlistBadge(); // ✅ update wishlist badge on remove
-      renderWishlistPage();
-    });
+  btn.addEventListener("click", () => {
+    const removed = getWishlist().find((i) => String(i.id) === String(btn.dataset.id));
+    let wishlist = getWishlist().filter((i) => String(i.id) !== String(btn.dataset.id));
+    saveWishlist(wishlist);
+    updateWishlistBadge(); // ✅ update wishlist badge on remove
+
+    if (removed) showToast(`${removed.name} removed from wishlist`, "info");
+
+    renderWishlistPage();
   });
+});
 
   updateWishlistBadge(); // ✅ always sync badge after render
 }
@@ -617,45 +625,64 @@ function setupProductCards() {
     };
 
     if (cartBtn) {
-      cartBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (cartBtn.classList.contains("btn-loading")) return;
-        const origText = cartBtn.innerText;
-        cartBtn.classList.add("btn-loading");
-        cartBtn.innerText = "Adding...";
-        setTimeout(() => {
-          addToCart(product);
-          cartBtn.innerText = "✓ Added!";
-          cartBtn.classList.remove("btn-loading");
-          setTimeout(() => {
-            cartBtn.innerText = origText;
-          }, 1000);
-        }, 600);
-      });
-    }
+  cartBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (cartBtn.classList.contains("btn-loading")) return;
+    const origText = cartBtn.innerText;
+    cartBtn.classList.add("btn-loading");
+    cartBtn.innerText = "Adding...";
+
+    // grab this before addToCart runs, since addToCart mutates the stored cart
+    const alreadyInCart = getCart().some((item) => item.id === product.id);
+
+    setTimeout(() => {
+      addToCart(product);
+      const toastMsg = alreadyInCart
+        ? `Added another ${product.name} (now in cart)`
+        : `${product.name} added to cart`;
+      showToast(toastMsg, "success");
+
+      cartBtn.innerText = "✓ Added!";
+      cartBtn.classList.remove("btn-loading");
+      setTimeout(() => {
+        cartBtn.innerText = origText;
+      }, 1000);
+    }, 600);
+  });
+}
 
     if (favBtn) {
-      favBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (favBtn.classList.contains("fav-loading")) return;
-        favBtn.classList.add("fav-loading");
-        setTimeout(() => {
-          favBtn.classList.remove("fav-loading");
-          toggleWishlist(product);
-          const icon = favBtn.querySelector("i");
-          if (icon) {
-            if (icon.classList.contains("fa-regular")) {
-              icon.classList.remove("fa-regular");
-              icon.classList.add("fa-solid");
-              icon.style.color = "#ff0055";
-            } else {
-              icon.classList.remove("fa-solid");
-              icon.classList.add("fa-regular");
-              icon.style.color = "";
-            }
-          }
-        }, 500);
-      });
+  favBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (favBtn.classList.contains("fav-loading")) return;
+    favBtn.classList.add("fav-loading");
+    setTimeout(() => {
+      favBtn.classList.remove("fav-loading");
+      toggleWishlist(product);
+      const icon = favBtn.querySelector("i");
+      if (icon) {
+        // icon still shows the pre-toggle state here, so this tells us
+        // which way the wishlist just changed
+        const wasAdded = icon.classList.contains("fa-regular");
+
+        if (wasAdded) {
+          icon.classList.remove("fa-regular");
+          icon.classList.add("fa-solid");
+          icon.style.color = "#ff0055";
+        } else {
+          icon.classList.remove("fa-solid");
+          icon.classList.add("fa-regular");
+          icon.style.color = "";
+        }
+
+        showToast(
+          wasAdded ? `${product.name} added to wishlist` : `${product.name} removed from wishlist`,
+          wasAdded ? "success" : "info"
+        );
+      }
+    }, 500);
+  });
+  
 
       const isInWishlist = getWishlist().some((item) => item.id === product.id);
       if (isInWishlist) {
