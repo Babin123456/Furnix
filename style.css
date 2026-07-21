@@ -1348,6 +1348,7 @@ input:focus {
   outline: none;
   border-color: var(--antique-brown);
   background: var(--white);
+  color: var(--text);
 }
 
 .contact-detail-item {
