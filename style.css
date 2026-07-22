@@ -1251,12 +1251,12 @@ small {
   padding: 0;
 }
 .contact-detail-item {
-  background: #fff;
+  background: var(--card);
   padding: 28px;
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: all 0.35s ease;
-  border: 1px solid #f0f0f0;
+  border: 1px solid var(--border);
 }
 .contact-detail-item:hover {
   transform: translateY(-6px);
@@ -1355,6 +1355,7 @@ input:focus {
   outline: none;
   border-color: var(--antique-brown);
   background: var(--white);
+  color: var(--text);
 }
 
 .contact-detail-item {
@@ -1393,7 +1394,7 @@ input:focus {
   margin-bottom: 10px;
 }
 .detail-info-platform {
-  color: #666;
+  color: var(--text-muted);
   line-height: 1.7;
   font-size: 16px;
 }
@@ -2443,6 +2444,15 @@ input:focus {
 .form-input.success, .input-group input.success {
   border-color: #256029 !important;
   background: #f0fff4 !important;
+}
+[data-theme="dark"] .form-input.success,
+[data-theme="dark"] .input-group input.success {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] .form-input.error,
+[data-theme="dark"] .input-group input.error {
+    background: rgba(255, 255, 255, 0.05) !important;
 }
 .field-error {
   color: #9b281a;
