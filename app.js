@@ -698,6 +698,7 @@ function setupProductCards() {
 }
 /* ============================================
    PRODUCT SORTING + FILTERING
+   ============================================ */
 
 function initProductSortAndFilter() {
   const grid = document.getElementById("furniture-grid");
@@ -736,6 +737,7 @@ function initProductSortAndFilter() {
   }
 
   function populateCategories() {
+    categoryFilter.innerHTML = '<option value="">All Categories</option>';
     const categories = [
       ...new Set(productCards.map(getProductCategory).filter(Boolean)),
     ];
@@ -823,6 +825,7 @@ function initProductSortAndFilter() {
 
     sortedCards.forEach((card) => {
       card.style.display = "";
+      card.classList.remove("product-card--hidden");
       grid.appendChild(card);
     });
 
@@ -836,6 +839,25 @@ function initProductSortAndFilter() {
   }
 
   populateCategories();
+
+  // URL parameter pre-selection support
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryParam = urlParams.get("category");
+  const sortParam = urlParams.get("sort");
+  const searchParam = urlParams.get("search");
+
+  if (categoryParam) {
+    const match = Array.from(categoryFilter.options).find(
+      (opt) => opt.value.toLowerCase() === categoryParam.toLowerCase()
+    );
+    if (match) categoryFilter.value = match.value;
+  }
+  if (sortParam && sortSelect.querySelector(`option[value="${sortParam}"]`)) {
+    sortSelect.value = sortParam;
+  }
+  if (searchParam && searchInput) {
+    searchInput.value = searchParam;
+  }
 
   [sortSelect, categoryFilter, priceFilter, availabilityFilter].forEach(
     (control) => {
