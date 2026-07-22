@@ -875,9 +875,10 @@ small {
 
 .category-card-desc {
   font-size: 14.5px;
-  color: var(--gray);
+  color: #ffffff;
   margin-top: 12px;
   letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* FURNITURE PAGE  */
@@ -1173,15 +1174,6 @@ small {
   cursor: pointer;
   text-align: left;
 }
-
-.accordion-header h5 {
-  margin-bottom: 0;
-  font-size: 1.1rem;
-  color: var(--text);
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
 .accordion-icon {
   transition: transform 0.3s ease;
   color: var(--text);
@@ -2261,6 +2253,11 @@ input:focus {
     width: 100%;
     font-size: 2rem;
   }
+}
+.h2-color{
+  background: rgba(219, 194, 194, 0.24) !important;
+    color: black !important;
+    padding: 5px;
 }
 
 @media screen and (max-width: 900px) {
