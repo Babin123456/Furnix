@@ -771,6 +771,8 @@ small {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: -1;
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .fix-section * {
@@ -784,7 +786,7 @@ small {
 
 .fix-section p {
   margin-top: 1rem;
-  color: rgba(240, 240, 240, 0.6);
+  color: rgba(240, 240, 240, 0.9);
 }
 
 .fix-section .btn:hover {
@@ -2015,6 +2017,8 @@ input:focus {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: -1;
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .footer-wrapper * {
@@ -2258,9 +2262,7 @@ input:focus {
 
   /* SECTION 05 */
 
-  .fix-section::before {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+
 
   .fix-section .h2-heading {
     width: 100%;
