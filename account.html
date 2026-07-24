@@ -20,9 +20,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-</head>
-<body>
+<link rel="manifest" href="/site.webmanifest">
+    <script src="scripts/init-theme.js"></script>
+</head><body>
     <header>
         <nav class="navbar flex between wrapper">
             <a href="index.html" class="logo">Furnix.</a>
@@ -43,9 +43,13 @@
                     <li><a href="#" class="icon" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p" aria-hidden="true"></i></a></li>
                 </ul></li>
             </ul>
-            <ul class="nav-icons flex g-one-half">
-                <li><a href="search.html" class="icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a></li>
-                <li><a href="login.html" class="icon" aria-label="Account"><i class="fa-solid fa-user" aria-hidden="true"></i></a></li>
+<ul class="nav-icons flex g-one-half">
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                        <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
+                    </button>
+                </li>
+                <li><a href="search.html" class="icon" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a></li>                <li><a href="login.html" class="icon" aria-label="Account"><i class="fa-solid fa-user" aria-hidden="true"></i></a></li>
                 <li>
                     <a href="wishlist.html" class="icon nav-icon-wrapper" aria-label="Wishlist">
                         <i class="fa-solid fa-heart" aria-hidden="true"></i>
@@ -138,7 +142,7 @@
         </div>
     </footer>
 
+<script src="app.js"></script>
     <script src="toast.js"></script>
-    <script type="module" src="account-auth.js"></script>
-</body>
+    <script type="module" src="account-auth.js"></script></body>
 </html>
