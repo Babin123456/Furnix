@@ -207,11 +207,14 @@ img {
   display: block;
 }
 
-.big-img:hover {
-  transition: transform 0.3s ease-in;
-  transform: scale(1.1);
+.big-img {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform;
 }
 
+.big-img:hover {
+  transform: scale(1.1);
+}
 .mt-1 {
   margin-top: 1rem;
 }
@@ -448,12 +451,12 @@ h3 {
   border-radius: 1rem;
   background: var(--back);
   position: relative;
-  transition: transform 1s ease-in-out;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   background-position: center;
   background-size: cover;
   overflow: hidden;
+  will-change: transform;
 }
-
 .category-card::before {
   content: "";
   position: absolute;
@@ -465,26 +468,9 @@ h3 {
   background-image: url(images/category1.webp);
 }
 
-.category-card:nth-child(1):hover {
-  transition: transform 0.3s ease-in;
+.category-card:hover {
   transform: scale(1.05);
 }
-
-.category-card:nth-child(2):hover {
-  transition: transform 0.3s ease-in;
-  transform: scale(1.05);
-}
-
-.category-card:nth-child(3):hover {
-  transition: transform 0.3s ease-in;
-  transform: scale(1.05);
-}
-
-.category-card:nth-child(4):hover {
-  transition: transform 0.3s ease-in;
-  transform: scale(1.05);
-}
-
 .category-card:nth-child(2) {
   background-image: url(images/category2.webp);
 }
@@ -637,13 +623,13 @@ del {
 }
 /* Product image hover effect — zoom + dark overlay */
 .product-image img {
-  transition: transform 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform;
 }
 
 .product-card:hover .product-image img {
   transform: scale(1.08);
 }
-
 .product-image::after {
   content: "";
   position: absolute;
@@ -2985,4 +2971,22 @@ img.lazy-image-fade.loaded {
 .theme-toggle:hover {
   color: var(--golden-hour);
   transform: scale(1.1);
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .big-img,
+  .category-card,
+  .product-image img {
+    transition: none;
+  }
+}
+
+/* Keep hover zoom effects tap-friendly on touch devices */
+@media (hover: none) {
+  .big-img:hover,
+  .category-card:hover,
+  .product-card:hover .product-image img {
+    transform: none;
+  }
 }
