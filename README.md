@@ -79,6 +79,35 @@ cd Furnix-Neon
 open index.html
 ```
 
+---
+
+## 🔐 Environment Variables
+
+This project uses environment variables to configure the backend server for local development.
+
+### Create a `.env` File
+
+Create a `.env` file in the project root directory (the same location as `server.js`).
+
+### Example
+
+```env
+PORT=5000
+```
+
+### Environment Variables
+
+| Variable | Description | Default Value |
+|----------|-------------|---------------|
+| `PORT` | Specifies the port on which the Express server runs. If this variable is not set, the server automatically uses port `5000`. | `5000` |
+
+### Security Notes
+
+- Never commit your `.env` file or any sensitive credentials to the repository.
+- Keep environment-specific configuration values private.
+- The project's `.gitignore` already excludes `.env` and `.env.local` files from version control.
+- If additional environment variables are introduced in the future, update this section accordingly.
+
 ## 📁 Project Structure
 
 ```text
