@@ -698,6 +698,7 @@ function setupProductCards() {
 }
 /* ============================================
    PRODUCT SORTING + FILTERING
+   ============================================ */
 
 function initProductSortAndFilter() {
   const grid = document.getElementById("furniture-grid");
@@ -736,6 +737,7 @@ function initProductSortAndFilter() {
   }
 
   function populateCategories() {
+    categoryFilter.innerHTML = '<option value="">All Categories</option>';
     const categories = [
       ...new Set(productCards.map(getProductCategory).filter(Boolean)),
     ];
@@ -823,6 +825,7 @@ function initProductSortAndFilter() {
 
     sortedCards.forEach((card) => {
       card.style.display = "";
+      card.classList.remove("product-card--hidden");
       grid.appendChild(card);
     });
 
@@ -836,6 +839,25 @@ function initProductSortAndFilter() {
   }
 
   populateCategories();
+
+  // URL parameter pre-selection support
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryParam = urlParams.get("category");
+  const sortParam = urlParams.get("sort");
+  const searchParam = urlParams.get("search");
+
+  if (categoryParam) {
+    const match = Array.from(categoryFilter.options).find(
+      (opt) => opt.value.toLowerCase() === categoryParam.toLowerCase()
+    );
+    if (match) categoryFilter.value = match.value;
+  }
+  if (sortParam && sortSelect.querySelector(`option[value="${sortParam}"]`)) {
+    sortSelect.value = sortParam;
+  }
+  if (searchParam && searchInput) {
+    searchInput.value = searchParam;
+  }
 
   [sortSelect, categoryFilter, priceFilter, availabilityFilter].forEach(
     (control) => {
@@ -886,16 +908,18 @@ window.addEventListener("storage", (e) => {
    BACK TO TOP BUTTON
   */
 function setupBackToTop() {
-    if (document.querySelector('.back-to-top')) return;
+    if (document.querySelector('.back-to-top') || document.getElementById('backToTop')) return;
 
     const backToTopBtn = document.createElement('button');
+    backToTopBtn.id = 'backToTop';
     backToTopBtn.className = 'back-to-top';
     backToTopBtn.setAttribute('aria-label', 'Back to top');
+    backToTopBtn.setAttribute('title', 'Scroll to top');
     backToTopBtn.setAttribute('type', 'button');
     backToTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up" aria-hidden="true"></i>';
     document.body.appendChild(backToTopBtn);
 
-    const SCROLL_THRESHOLD = 400;
+    const SCROLL_THRESHOLD = 300;
     let ticking = false;
 
     function toggleVisibility() {
@@ -912,7 +936,7 @@ function setupBackToTop() {
             window.requestAnimationFrame(toggleVisibility);
             ticking = true;
         }
-    });
+    }, { passive: true });
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -921,7 +945,11 @@ function setupBackToTop() {
     toggleVisibility();
 }
 
-document.addEventListener('DOMContentLoaded', setupBackToTop);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupBackToTop);
+} else {
+    setupBackToTop();
+}
 
 
 /* ---- PRODUCT SOCIAL SHARE SYSTEM ---- */
@@ -1185,27 +1213,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/* ---- BACK TO TOP LOGIC ---- */
-document.addEventListener("DOMContentLoaded", () => {
-  const backToTopBtn = document.createElement("button");
-  backToTopBtn.id = "backToTop";
-  backToTopBtn.className = "back-to-top";
-  backToTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
-  backToTopBtn.setAttribute("aria-label", "Back to top");
-  document.body.appendChild(backToTopBtn);
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add("show");
-    } else {
-      backToTopBtn.classList.remove("show");
-    }
-  });
-
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-});
