@@ -908,16 +908,18 @@ window.addEventListener("storage", (e) => {
    BACK TO TOP BUTTON
   */
 function setupBackToTop() {
-    if (document.querySelector('.back-to-top')) return;
+    if (document.querySelector('.back-to-top') || document.getElementById('backToTop')) return;
 
     const backToTopBtn = document.createElement('button');
+    backToTopBtn.id = 'backToTop';
     backToTopBtn.className = 'back-to-top';
     backToTopBtn.setAttribute('aria-label', 'Back to top');
+    backToTopBtn.setAttribute('title', 'Scroll to top');
     backToTopBtn.setAttribute('type', 'button');
     backToTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up" aria-hidden="true"></i>';
     document.body.appendChild(backToTopBtn);
 
-    const SCROLL_THRESHOLD = 400;
+    const SCROLL_THRESHOLD = 300;
     let ticking = false;
 
     function toggleVisibility() {
@@ -934,7 +936,7 @@ function setupBackToTop() {
             window.requestAnimationFrame(toggleVisibility);
             ticking = true;
         }
-    });
+    }, { passive: true });
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -943,7 +945,11 @@ function setupBackToTop() {
     toggleVisibility();
 }
 
-document.addEventListener('DOMContentLoaded', setupBackToTop);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupBackToTop);
+} else {
+    setupBackToTop();
+}
 
 
 /* ---- PRODUCT SOCIAL SHARE SYSTEM ---- */
@@ -1207,27 +1213,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/* ---- BACK TO TOP LOGIC ---- */
-document.addEventListener("DOMContentLoaded", () => {
-  const backToTopBtn = document.createElement("button");
-  backToTopBtn.id = "backToTop";
-  backToTopBtn.className = "back-to-top";
-  backToTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
-  backToTopBtn.setAttribute("aria-label", "Back to top");
-  document.body.appendChild(backToTopBtn);
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add("show");
-    } else {
-      backToTopBtn.classList.remove("show");
-    }
-  });
-
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-});
