@@ -3030,3 +3030,31 @@ body.has-custom-cursor .btn {
     display: none;
   }
 }
+
+/* Shopping Cart Engine & Promo Code UI */
+.promo-code-container {
+  background: var(--bg-secondary, rgba(255, 255, 255, 0.05));
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.promo-code-container input:focus {
+  outline: none;
+  border-color: var(--antique-brown, #b8860b);
+}
+
+.cart-summary-box .summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.cart-summary-box .summary-row.total {
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-top: 1px solid var(--border-color, #eee);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
