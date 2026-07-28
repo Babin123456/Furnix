@@ -727,6 +727,17 @@ function initProductSortAndFilter() {
     card.dataset.originalIndex = index;
   });
 
+  if (window.FurnixSearchEngine) {
+    const productsData = productCards.map(card => ({
+      id: card.dataset.id || card.querySelector("h6")?.innerText || '',
+      name: card.querySelector("h6")?.innerText || '',
+      category: card.querySelector("small")?.innerText || '',
+      price: parseFloat(card.querySelector(".price")?.innerText.replace(/[^0-9.]/g, '') || 0),
+      element: card
+    }));
+    window.FurnixSearchEngine.buildIndex(productsData);
+  }
+
   function getProductPrice(card) {
     const priceText = card.querySelector(".price")?.innerText || "0";
     return parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0;
