@@ -94,9 +94,17 @@ Furnix-Neon/
 └── README.md
 ```
 
-## 📖 Architecture & Deployment Docs
-- See [ARCHITECTURE.md](ARCHITECTURE.md) for architecture diagram and component overview.
+## 📖 Architecture & Developer Documentation
+- See [ARCHITECTURE.md](ARCHITECTURE.md) for system architecture overview.
+- See [STOREFRONT_ARCHITECTURE.md](docs/STOREFRONT_ARCHITECTURE.md) for deep storefront subsystem specs & data flows.
+- See [CLIENT_API_REFERENCE.md](docs/CLIENT_API_REFERENCE.md) for JavaScript client modules API reference.
 - See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for Vercel & Docker deployment guides.
+
+### 🧪 Environment Diagnostics
+Run local workspace file & module check:
+```bash
+node scripts/dev-environment-check.js
+```
 
 ## 🤝 Contributing
 
