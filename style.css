@@ -3023,10 +3023,11 @@ body.has-custom-cursor .btn {
   cursor: none;
 }
 
-/* Safety net: never show the custom cursor on touch devices */
-@media (hover: none), (pointer: coarse) {
-  .custom-cursor-dot,
-  .custom-cursor-ring {
-    display: none;
-  }
-}
+/* Search Engine Keyword Highlight */
+mark.search-highlight {
+  background: rgba(217, 139, 54, 0.25);
+  color: var(--golden-hour, #d98b36);
+  border-radius: 2px;
+  padding: 0 2px;
+  font-weight: bold;
+}
