@@ -97,6 +97,9 @@ textarea:focus-visible {
   outline-offset: 4px;
 }
 
+#searchInput:focus-visible {
+    outline: none;
+}
 li {
   list-style: none;
 }
@@ -3057,4 +3060,15 @@ body.has-custom-cursor .btn {
   border-top: 1px solid var(--border-color, #eee);
   padding-top: 0.75rem;
   margin-top: 0.5rem;
+}
+
+#searchInput:focus,
+#searchInput:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.input-container:focus-within {
+    outline: none;
+    box-shadow: none;
 }
