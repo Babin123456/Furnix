@@ -692,6 +692,15 @@ function setupProductCards() {
   });
 }
 
+    if (imgElement) {
+      imgElement.style.cursor = "pointer";
+      imgElement.addEventListener("click", () => {
+        if (window.FurnixProductModal) {
+          window.FurnixProductModal.open(product);
+        }
+      });
+    }
+
     if (favBtn) {
   favBtn.addEventListener("click", (e) => {
     e.preventDefault();
