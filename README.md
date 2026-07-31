@@ -71,6 +71,29 @@ It focuses on:
 - **Vercel** → Deployment  
 
 ---
+
+## 🌐 Browser Compatibility
+
+Furnix Neon is tested on modern web browsers to provide a consistent and responsive shopping experience. For the best performance, use the latest stable version of your browser with JavaScript enabled.
+
+| Browser | Support |
+|----------|---------|
+| Google Chrome | ✅ Latest |
+| Mozilla Firefox | ✅ Latest |
+| Microsoft Edge | ✅ Latest |
+| Safari | ✅ Latest |
+| Mobile Browsers (Android/iOS) | ✅ Supported |
+
+### Notes
+
+- ✅ JavaScript must be enabled for all interactive features.
+- ✅ Responsive design is optimized for:
+  - 💻 Desktop
+  - 📱 Mobile
+  - 📟 Tablet
+- ✅ Keeping your browser updated ensures the best performance, compatibility, and security.
+
+---
 ## 🛠️ Installation
 
 ```bash
