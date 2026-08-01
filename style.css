@@ -3072,3 +3072,35 @@ body.has-custom-cursor .btn {
     outline: none;
     box-shadow: none;
 }
+
+/* Checkout Discount & Order Breakdown Styling */
+.discount-row {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.free-shipping-bar-wrapper {
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.free-shipping-progress {
+    height: 6px;
+    background-color: #8c4c1e;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.coupon-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #eaf7ea;
+    color: #256029;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
