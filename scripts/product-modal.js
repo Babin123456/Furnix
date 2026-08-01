@@ -66,13 +66,16 @@
             document.body.style.overflow = 'hidden';
             this.activeModal = backdrop;
 
+            if (global.FurnixNotificationSystem) {
+                global.FurnixNotificationSystem.trapFocus(backdrop);
+            }
+
             const closeBtn = content.querySelector('.furnix-modal-close');
             const qtyInput = content.querySelector('.qty-input');
             const minusBtn = content.querySelector('.qty-minus');
             const plusBtn = content.querySelector('.qty-plus');
             const addBtn = content.querySelector('.furnix-modal-add-btn');
 
-            closeBtn.focus();
             closeBtn.addEventListener('click', () => this.closeModal());
             backdrop.addEventListener('click', (e) => {
                 if (e.target === backdrop) this.closeModal();
@@ -95,12 +98,16 @@
                 } else if (typeof global.addToCart === 'function') {
                     for (let i = 0; i < qty; i++) global.addToCart(product);
                 }
+                if (global.showToast) global.showToast(`Added ${product.name} to cart!`, 'success');
                 this.closeModal();
             });
         }
 
         closeModal() {
             if (!this.activeModal) return;
+            if (global.FurnixNotificationSystem) {
+                global.FurnixNotificationSystem.releaseFocus();
+            }
             this.activeModal.remove();
             this.activeModal = null;
             document.body.style.overflow = '';

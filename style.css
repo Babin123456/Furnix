@@ -3072,3 +3072,61 @@ body.has-custom-cursor .btn {
     outline: none;
     box-shadow: none;
 }
+
+/* Toast Container & Notification System */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 420px;
+    pointer-events: none;
+}
+
+.toast-item {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast-item.toast-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-item.toast-hiding {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.toast-success { background-color: #256029; }
+.toast-error { background-color: #a82315; }
+.toast-warning { background-color: #c97a14; }
+.toast-info { background-color: #1d5285; }
+
+.toast-close-btn {
+    background: none;
+    border: none;
+    color: currentColor;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: auto;
+    opacity: 0.8;
+}
+
+.toast-close-btn:hover {
+    opacity: 1;
+}
