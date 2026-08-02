@@ -127,11 +127,13 @@ Furnix-Neon/
 - See [ARCHITECTURE.md](ARCHITECTURE.md) for system architecture overview.
 - See [STOREFRONT_ARCHITECTURE.md](docs/STOREFRONT_ARCHITECTURE.md) for deep storefront subsystem specs & data flows.
 - See [CLIENT_API_REFERENCE.md](docs/CLIENT_API_REFERENCE.md) for JavaScript client modules API reference.
+- See [DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) for developer guide and module testing instructions.
 - See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for Vercel & Docker deployment guides.
 
-### 🧪 Environment Diagnostics
-Run local workspace file & module check:
+### 🧪 Environment Diagnostics & Testing
+Run unit tests and local workspace file & module check:
 ```bash
+node --test scripts/*.test.js
 node scripts/dev-environment-check.js
 ```
 
