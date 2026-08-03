@@ -75,3 +75,59 @@ Performs term matching query and returns score-ranked result array.
 
 #### `highlight(text: string, query: string): string`
 Wraps matching keyword substrings in `<mark class="search-highlight">` tags.
+
+---
+
+## 💱 5. CurrencyConverter (`scripts/currency-converter.js`)
+
+Multi-currency exchange rate calculation and DOM price updater.
+
+### Methods
+
+#### `convertPrice(baseUsdAmount: number, targetCurrency: string): number`
+Converts USD base price to target currency (USD, EUR, GBP, INR, JPY).
+
+#### `formatPrice(baseUsdAmount: number, targetCurrency: string): string`
+Formats converted price with matching currency symbol (`$100.00`, `€92.00`, `₹8350.00`).
+
+---
+
+## ⭐ 6. ProductReviewEngine (`scripts/review-engine.js`)
+
+Manages customer star ratings, comments, and review statistics.
+
+### Methods
+
+#### `getAverageRating(productId: string): Object`
+Returns `{ average: number, count: number }` for specified product ID.
+
+#### `addProductReview(productId: string, author: string, rating: number, comment: string): Object|false`
+Submits validated review entry and persists state in `localStorage`.
+
+---
+
+## 🚚 7. OrderTrackerEngine (`scripts/order-tracker.js`)
+
+Manages purchase histories and shipment progress timelines.
+
+### Methods
+
+#### `recordNewOrder(orderData: Object): Object|false`
+Saves new purchase order to customer history with tracking number.
+
+#### `findOrderById(query: string): Object|null`
+Searches order history by Order ID or tracking number string.
+
+---
+
+## 🎟️ 8. CouponEngine (`scripts/coupon-engine.js`)
+
+Validates promo discount codes and minimum spend rules.
+
+### Methods
+
+#### `validateCoupon(code: string, subtotal: number): Object`
+Verifies voucher code eligibility against minimum order spend requirements.
+
+#### `calculateDiscount(code: string, subtotal: number): number`
+Calculates exact dollar discount savings for active coupon.
