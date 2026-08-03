@@ -3072,3 +3072,17 @@ body.has-custom-cursor .btn {
     outline: none;
     box-shadow: none;
 }
+
+/* Smooth Theme Mode System Transitions */
+html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--accent-color, #8c4c1e);
+    outline-offset: 2px;
+}

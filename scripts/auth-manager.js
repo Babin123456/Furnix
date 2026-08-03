@@ -88,11 +88,17 @@
             const strengthBar = document.getElementById('passwordStrengthBar');
             const strengthText = document.getElementById('passwordStrengthText');
 
-            if (passwordInput && strengthBar && this.sanitizer) {
+            if (passwordInput && strengthBar) {
                 passwordInput.addEventListener('input', () => {
                     const val = passwordInput.value;
-                    const res = this.sanitizer.evaluatePasswordStrength(val);
-                    strengthBar.style.width = `${(res.score + 1) * 20}%`;
+                    let res = { score: 0, label: 'Weak', color: '#e74c3c' };
+                    if (this.sanitizer) {
+                        res = this.sanitizer.evaluatePasswordStrength(val);
+                    } else {
+                        if (val.length >= 8) res = { score: 3, label: 'Strong', color: '#27ae60' };
+                        else if (val.length >= 5) res = { score: 1, label: 'Medium', color: '#f39c12' };
+                    }
+                    strengthBar.style.width = `${Math.min(100, (res.score + 1) * 20)}%`;
                     strengthBar.style.backgroundColor = res.color;
                     if (strengthText) strengthText.textContent = `Strength: ${res.label}`;
                 });
