@@ -71,6 +71,29 @@ It focuses on:
 - **Vercel** → Deployment  
 
 ---
+
+## 🌐 Browser Compatibility
+
+Furnix Neon is tested on modern web browsers to provide a consistent and responsive shopping experience. For the best performance, use the latest stable version of your browser with JavaScript enabled.
+
+| Browser | Support |
+|----------|---------|
+| Google Chrome | ✅ Latest |
+| Mozilla Firefox | ✅ Latest |
+| Microsoft Edge | ✅ Latest |
+| Safari | ✅ Latest |
+| Mobile Browsers (Android/iOS) | ✅ Supported |
+
+### Notes
+
+- ✅ JavaScript must be enabled for all interactive features.
+- ✅ Responsive design is optimized for:
+  - 💻 Desktop
+  - 📱 Mobile
+  - 📟 Tablet
+- ✅ Keeping your browser updated ensures the best performance, compatibility, and security.
+
+---
 ## 🛠️ Installation
 
 ```bash
@@ -127,11 +150,13 @@ Furnix-Neon/
 - See [ARCHITECTURE.md](ARCHITECTURE.md) for system architecture overview.
 - See [STOREFRONT_ARCHITECTURE.md](docs/STOREFRONT_ARCHITECTURE.md) for deep storefront subsystem specs & data flows.
 - See [CLIENT_API_REFERENCE.md](docs/CLIENT_API_REFERENCE.md) for JavaScript client modules API reference.
+- See [DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) for developer guide and module testing instructions.
 - See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for Vercel & Docker deployment guides.
 
-### 🧪 Environment Diagnostics
-Run local workspace file & module check:
+### 🧪 Environment Diagnostics & Testing
+Run unit tests and local workspace file & module check:
 ```bash
+node --test scripts/*.test.js
 node scripts/dev-environment-check.js
 ```
 
