@@ -41,6 +41,8 @@ graph TD
 - `scripts/product-modal.js`, `scripts/wishlist-sync.js`: Accessible quickview modals and cross-tab wishlist state synchronizer.
 - `scripts/security-sanitizer.js`, `scripts/auth-manager.js`: DOM XSS input sanitization and password strength scoring.
 - `scripts/search-engine.js`, `scripts/filter-controller.js`: Fuzzy product text matching and multi-criteria sorting.
+- `scripts/theme-controller.js`: Zero-FOUC theme controller with OS preference listener and ARIA toggle controls.
+- `.github/workflows/storefront-lint.yml`: Automated CI pipeline for syntax validation and code quality checks.
 - For detailed subsystem specifications, see [STOREFRONT_ARCHITECTURE.md](docs/STOREFRONT_ARCHITECTURE.md).
 - For developer API method signatures, see [CLIENT_API_REFERENCE.md](docs/CLIENT_API_REFERENCE.md).
 
