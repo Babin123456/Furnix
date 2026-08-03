@@ -3073,16 +3073,24 @@ body.has-custom-cursor .btn {
     box-shadow: none;
 }
 
-/* Smooth Theme Mode System Transitions */
-html {
-    transition: background-color 0.3s ease, color 0.3s ease;
+/* Product Review & Rating System Styles */
+.review-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--golden-hour, #f1b555);
+    margin-top: 0.25rem;
 }
-
-[data-theme="dark"] {
-    color-scheme: dark;
+.review-badge .review-count {
+    color: var(--text-muted, #888);
+    font-size: 0.75rem;
 }
-
-.theme-toggle:focus-visible {
-    outline: 2px solid var(--accent-color, #8c4c1e);
-    outline-offset: 2px;
+.text-warning { color: #f1b555; }
+.text-muted { color: #888; }
+.star-rating-input {
+    display: flex;
+    gap: 0.25rem;
+    cursor: pointer;
+    font-size: 1.25rem;
 }
