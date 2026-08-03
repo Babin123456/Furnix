@@ -24,19 +24,25 @@
     document.addEventListener('mousemove', function (e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursorDot.style.left = mouseX + 'px';
-      cursorDot.style.top = mouseY + 'px';
+      // DOM updates removed from here to prevent synchronous layout thrashing
     });
 
-    // Smoothly animate the outer ring so it "catches up" to the dot
-    function animateRing() {
+    // Batch all cursor DOM updates inside the requestAnimationFrame loop
+    function animateCursor() {
+      // Instantly update the dot to the tracked mouse coordinates
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+
+      // Smoothly animate the outer ring so it "catches up" to the dot
       ringX += (mouseX - ringX) * 0.15;
       ringY += (mouseY - ringY) * 0.15;
       cursorRing.style.left = ringX + 'px';
       cursorRing.style.top = ringY + 'px';
-      requestAnimationFrame(animateRing);
+      
+      requestAnimationFrame(animateCursor);
     }
-    animateRing();
+    // Initiate the animation loop
+    animateCursor();
 
     // Add a "hover" state on interactive elements
     var hoverTargets = 'a, button, input, textarea, select, .btn, .icon, .product-card, .category-card, img, .theme-toggle';
