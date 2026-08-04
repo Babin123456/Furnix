@@ -1,1 +1,1 @@
-FROM node:26
+﻿FROM node:18
