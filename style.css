@@ -3072,3 +3072,37 @@ body.has-custom-cursor .btn {
     outline: none;
     box-shadow: none;
 }
+
+/* Active Filter Badges */
+.active-filter-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.filter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(184, 115, 51, 0.12);
+    color: #8c4c1e;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.filter-badge button {
+    background: none;
+    border: none;
+    color: currentColor;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 2px;
+}
+
+.filter-badge button:hover {
+    color: #000;
+}
