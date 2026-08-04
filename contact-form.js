@@ -9,6 +9,14 @@
   const subjectInput = document.getElementById('subject');
   const messageInput = document.getElementById('message');
 
+  // Define and initialize fieldErrors mapping object
+  const fieldErrors = {
+    'name': document.getElementById('nameError'),
+    'email': document.getElementById('emailError'),
+    'subject': document.getElementById('subjectError'),
+    'message': document.getElementById('messageError')
+  };
+
   const sanitizer = window.SecuritySanitizer || null;
   const validator = window.FurnixFormValidatorEngine || null;
 
