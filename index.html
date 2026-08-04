@@ -72,6 +72,15 @@
             </ul>
             <ul class="nav-icons flex g-one-half">
                 <li>
+                    <select class="currency-select" aria-label="Select Currency" style="background:transparent;color:inherit;border:1px solid currentColor;border-radius:4px;padding:2px 4px;font-size:0.85rem;cursor:pointer;">
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                        <option value="INR">INR (₹)</option>
+                        <option value="JPY">JPY (¥)</option>
+                    </select>
+                </li>
+                <li>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
                         <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
                     </button>
@@ -520,6 +529,7 @@
     </footer>
     <script src="scripts/theme-controller.js"></script>
     <script src="scripts/image-optimizer.js"></script>
+    <script src="scripts/currency-converter.js"></script>
     <script src="app.js"></script>
     <script src="toast.js"></script>
     <script type="module" src="auth.js"></script>
