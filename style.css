@@ -3073,24 +3073,36 @@ body.has-custom-cursor .btn {
     box-shadow: none;
 }
 
-/* Product Review & Rating System Styles */
-.review-badge {
+/* Active Filter Badges */
+.active-filter-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.filter-badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 6px;
+    background-color: rgba(184, 115, 51, 0.12);
+    color: #8c4c1e;
+    padding: 4px 10px;
+    border-radius: 16px;
     font-size: 0.85rem;
-    color: var(--golden-hour, #f1b555);
-    margin-top: 0.25rem;
+    font-weight: 500;
 }
-.review-badge .review-count {
-    color: var(--text-muted, #888);
-    font-size: 0.75rem;
-}
-.text-warning { color: #f1b555; }
-.text-muted { color: #888; }
-.star-rating-input {
-    display: flex;
-    gap: 0.25rem;
+
+.filter-badge button {
+    background: none;
+    border: none;
+    color: currentColor;
+    font-size: 1.1rem;
     cursor: pointer;
-    font-size: 1.25rem;
+    line-height: 1;
+    padding: 0 2px;
+}
+
+.filter-badge button:hover {
+    color: #000;
 }
