@@ -3073,36 +3073,34 @@ body.has-custom-cursor .btn {
     box-shadow: none;
 }
 
-/* Active Filter Badges */
-.active-filter-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
+/* Checkout Discount & Order Breakdown Styling */
+.discount-row {
+    color: #27ae60;
+    font-weight: 600;
 }
 
-.filter-badge {
+.free-shipping-bar-wrapper {
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.free-shipping-progress {
+    height: 6px;
+    background-color: #8c4c1e;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.coupon-tag {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background-color: rgba(184, 115, 51, 0.12);
-    color: #8c4c1e;
-    padding: 4px 10px;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-.filter-badge button {
-    background: none;
-    border: none;
-    color: currentColor;
-    font-size: 1.1rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0 2px;
-}
-
-.filter-badge button:hover {
-    color: #000;
+    background-color: #eaf7ea;
+    color: #256029;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
 }

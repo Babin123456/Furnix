@@ -92,6 +92,8 @@
             } else if (newQty <= 99) {
                 item.quantity = newQty;
                 this.saveCartItems(items);
+            } else {
+                if (global.showToast) global.showToast('Maximum item quantity limit reached (99).', 'warning');
             }
         }
 
