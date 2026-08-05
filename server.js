@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -25,6 +26,18 @@ app.use((err, req, res, next) => {
   next();
 });
 
+// Configure rate limiter for the contact endpoint (max 5 requests per 15 minutes per IP)
+const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,                   // limit each IP to 5 requests per windowMs
+  standardHeaders: true,    // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false,     // Disable the `X-RateLimit-*` headers
+  message: {
+    success: false,
+    message: "Too many contact submissions from this IP, please try again after 15 minutes."
+  }
+});
+
 // Helper function to validate email format
 const isValidEmail = (email) => {
   if (typeof email !== 'string') return false;
@@ -33,8 +46,8 @@ const isValidEmail = (email) => {
   return emailRegex.test(email);
 };
 
-// POST /api/contact endpoint
-app.post('/api/contact', (req, res) => {
+// POST /api/contact endpoint with rate limiting applied
+app.post('/api/contact', contactLimiter, (req, res) => {
   const { name, email, message } = req.body;
 
   // Validation rules:

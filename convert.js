@@ -4,15 +4,29 @@ const path = require('path');
 
 const imagesDir = './images';
 
-fs.readdirSync(imagesDir).forEach(file => {
-  if (file.endsWith('.png') || file.endsWith('.jpg')) {
-    const input = path.join(imagesDir, file);
-    const output = path.join(imagesDir, file.replace(/\.(png|jpg)$/, '.webp'));
-    sharp(input)
-      .webp({ quality: 80 })
-      .toFile(output, (err) => {
-        if (err) console.error('Error converting', file, err);
-        else console.log('Converted:', file, '→', file.replace(/\.(png|jpg)$/, '.webp'));
-      });
-  }
-});
+function processDirectory(dir) {
+  // Read directory contents with file types to distinguish files from folders
+  fs.readdirSync(dir, { withFileTypes: true }).forEach(dirent => {
+    const fullPath = path.join(dir, dirent.name);
+
+    if (dirent.isDirectory()) {
+      // Recursively process nested subdirectories
+      processDirectory(fullPath);
+    } else {
+      // Use case-insensitive regex to match .png, .jpg, .PNG, .JPG, etc.
+      if (/\.(png|jpg)$/i.test(dirent.name)) {
+        const output = fullPath.replace(/\.(png|jpg)$/i, '.webp');
+        
+        sharp(fullPath)
+          .webp({ quality: 80 })
+          .toFile(output, (err) => {
+            if (err) console.error('Error converting', fullPath, err);
+            else console.log('Converted:', fullPath, '→', output);
+          });
+      }
+    }
+  });
+}
+
+// Start processing from the root images directory
+processDirectory(imagesDir);

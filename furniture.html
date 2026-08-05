@@ -215,6 +215,8 @@
           </button>
         </div>
 
+        <div id="activeFilterBadges" class="active-filter-badges" style="display:none; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem;"></div>
+
         <p
           id="product-results-count"
           class="product-results-count"
@@ -293,12 +295,12 @@
               >
                 <i class="fa-regular fa-heart" aria-hidden="true"></i>
               </a>
-              <a href="#" class="btn brown-bg" data-cart-btn>Add to cart</a>
             </div>
             <div>
               <small>Seating</small>
               <h6>Modern Chair</h6>
-              <p class="price">$100.00</p>
+              <p class="price" style="margin-bottom: 15px;">$100.00</p>
+              <a href="#" class="btn brown-bg" style="display: block; text-align: center;" data-cart-btn data-product-id="modern-chair">Add to cart</a>
             </div>
           </div>
 
@@ -326,12 +328,12 @@
               >
                 <i class="fa-regular fa-heart" aria-hidden="true"></i>
               </a>
-              <a href="#" class="btn brown-bg" data-cart-btn>Add to cart</a>
             </div>
             <div>
               <small>Seating</small>
               <h6>Embrace Lounge Chair</h6>
-              <p class="price">$200.00</p>
+              <p class="price" style="margin-bottom: 15px;">$200.00</p>
+              <a href="#" class="btn brown-bg" style="display: block; text-align: center;" data-cart-btn data-product-id="embrace-lounge-chair">Add to cart</a>
             </div>
           </div>
 
@@ -359,12 +361,12 @@
               >
                 <i class="fa-regular fa-heart" aria-hidden="true"></i>
               </a>
-              <a href="#" class="btn brown-bg" data-cart-btn>Add to cart</a>
             </div>
             <div>
               <small>Tables</small>
               <h6>Side Table</h6>
-              <p class="price">$150.00</p>
+              <p class="price" style="margin-bottom: 15px;">$150.00</p>
+              <a href="#" class="btn brown-bg" style="display: block; text-align: center;" data-cart-btn data-product-id="side-table">Add to cart</a>
             </div>
           </div>
 
@@ -392,12 +394,12 @@
               >
                 <i class="fa-regular fa-heart" aria-hidden="true"></i>
               </a>
-              <a href="#" class="btn brown-bg" data-cart-btn>Add to cart</a>
             </div>
             <div>
               <small>Lighting</small>
               <h6>Aura Pendant Lamp</h6>
-              <p class="price">$30.00</p>
+              <p class="price" style="margin-bottom: 15px;">$30.00</p>
+              <a href="#" class="btn brown-bg" style="display: block; text-align: center;" data-cart-btn data-product-id="aura-pendant-lamp">Add to cart</a>
             </div>
           </div>
 
@@ -425,12 +427,12 @@
               >
                 <i class="fa-regular fa-heart" aria-hidden="true"></i>
               </a>
-              <a href="#" class="btn brown-bg" data-cart-btn>Add to cart</a>
             </div>
             <div>
               <small>Accessories</small>
               <h6>Flower Vase Decor</h6>
-              <p class="price">$20.00</p>
+              <p class="price" style="margin-bottom: 15px;">$20.00</p>
+              <a href="#" class="btn brown-bg" style="display: block; text-align: center;" data-cart-btn data-product-id="flower-vase-decor">Add to cart</a>
             </div>
           </div>
 
@@ -458,12 +460,12 @@
               >
                 <i class="fa-regular fa-heart" aria-hidden="true"></i>
               </a>
-              <a href="#" class="btn brown-bg" data-cart-btn>Add to cart</a>
             </div>
             <div>
               <small>Bedroom</small>
               <h6>Modern Scandinavian Bed</h6>
-              <p class="price">$1500.00</p>
+              <p class="price" style="margin-bottom: 15px;">$1500.00</p>
+              <a href="#" class="btn brown-bg" style="display: block; text-align: center;" data-cart-btn data-product-id="modern-scandinavian-bed">Add to cart</a>
             </div>
           </div>
 
@@ -491,12 +493,12 @@
               >
                 <i class="fa-regular fa-heart" aria-hidden="true"></i>
               </a>
-              <a href="#" class="btn brown-bg" data-cart-btn>Add to cart</a>
             </div>
             <div>
               <small>Seating</small>
               <h6>Luxury Sectional Sofa</h6>
-              <p class="price">$1200.00</p>
+              <p class="price" style="margin-bottom: 15px;">$1200.00</p>
+              <a href="#" class="btn brown-bg" style="display: block; text-align: center;" data-cart-btn data-product-id="luxury-sectional-sofa">Add to cart</a>
             </div>
           </div>
         </div>
@@ -513,17 +515,18 @@
             on your first order
           </h3>
           <form class="input-container" onsubmit="event.preventDefault(); showToast('Thanks for subscribing to our newsletter!', 'success');">
-                    <input
+            <input
               type="email"
               name="email"
               id="footerEmail"
               placeholder="Enter your email.."
               autocomplete="off"
-            / required>
-                    <button type="submit" class="simple-icon" aria-label="Open details"
+              required
+            />
+            <button type="submit" class="simple-icon" aria-label="Open details"
                style="background:none; border:none; cursor:pointer;"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i
             ></button>
-                </form>
+          </form>
                 <ul class="footer-social-icon flex">
                     <li><a href="#" class="icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
                     <li><a href="#" class="icon" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a></li>
@@ -579,9 +582,12 @@
         </p>
       </div>
     </footer>
+    <script src="scripts/catalog-state-manager.js"></script>
+    <script src="scripts/filter-controller.js"></script>
     <script src="scripts/product-modal.js"></script>
     <script src="scripts/wishlist-sync.js"></script>
     <script src="scripts/review-engine.js"></script>
+    <script src="scripts/catalog-quantity-controller.js"></script>
     <script src="app.js"></script>
     <script src="toast.js"></script>
     <script type="module" src="auth.js"></script>

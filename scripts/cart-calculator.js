@@ -43,32 +43,34 @@
                 return acc + (price * qty);
             }, 0);
 
-            const promo = this.validatePromoCode(promoCode);
-            let discountAmount = 0;
+            const discountEngine = global.FurnixCheckoutDiscountEngine;
+            let totals = {
+                subtotal,
+                discount: 0,
+                shipping: (subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0) ? 0 : STANDARD_SHIPPING_FEE,
+                tax: subtotal * ESTIMATED_TAX_RATE,
+                total: subtotal + ((subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0) ? 0 : STANDARD_SHIPPING_FEE) + (subtotal * ESTIMATED_TAX_RATE),
+                freeShippingNeeded: Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal),
+                freeShippingProgress: Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100)
+            };
 
-            if (promo && subtotal > 0) {
-                if (promo.type === 'percentage') {
-                    discountAmount = subtotal * (promo.value / 100);
-                } else if (promo.type === 'fixed') {
-                    discountAmount = Math.min(subtotal, promo.value);
-                }
+            if (discountEngine) {
+                if (promoCode) discountEngine.applyCoupon(promoCode);
+                totals = discountEngine.calculateTotals(subtotal);
             }
-
-            const discountedSubtotal = Math.max(0, subtotal - discountAmount);
-            const shippingFee = (discountedSubtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0) ? 0 : STANDARD_SHIPPING_FEE;
-            const estimatedTax = discountedSubtotal * ESTIMATED_TAX_RATE;
-            const grandTotal = discountedSubtotal + shippingFee + estimatedTax;
 
             return {
                 itemCount: safeItems.reduce((acc, item) => acc + (parseInt(item.quantity, 10) || 1), 0),
-                subtotal,
-                discountAmount,
-                discountedSubtotal,
-                shippingFee,
-                estimatedTax,
-                grandTotal,
-                promoApplied: promo,
-                isFreeShipping: shippingFee === 0 && subtotal > 0
+                subtotal: totals.subtotal,
+                discountAmount: totals.discount,
+                discountedSubtotal: totals.subtotal - totals.discount,
+                shippingFee: totals.shipping,
+                estimatedTax: totals.tax,
+                grandTotal: totals.total,
+                freeShippingNeeded: totals.freeShippingNeeded,
+                freeShippingProgress: totals.freeShippingProgress,
+                promoApplied: totals.coupon,
+                isFreeShipping: totals.shipping === 0 && subtotal > 0
             };
         },
 

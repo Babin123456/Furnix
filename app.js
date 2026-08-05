@@ -104,7 +104,7 @@ function addToCart(product) {
   let cart = getCart();
   const index = cart.findIndex((item) => item.id === product.id);
   if (index !== -1) {
-    cart[index].quantity = (cart[index].quantity || 1) + 1;
+    cart[index].quantity = cart[index].quantity ? cart[index].quantity + 1 : 1;
   } else {
     product.quantity = 1;
     cart.push(product);
@@ -232,14 +232,16 @@ function renderCartPage() {
       let cart = getCart();
       const index = cart.findIndex((i) => String(i.id) === String(id));
       if (index === -1) return;
+      
       if (action === "increase") {
-        cart[index].quantity = (cart[index].quantity || 1) + 1;
+        cart[index].quantity = cart[index].quantity ? cart[index].quantity + 1 : 1;
       } else {
-        cart[index].quantity = (cart[index].quantity || 1) - 1;
+        cart[index].quantity = cart[index].quantity ? cart[index].quantity - 1 : 0;
         if (cart[index].quantity <= 0) cart.splice(index, 1);
       }
+      
       saveCart(cart);
-      updateCartBadge(); // ✅ update badge on qty change
+      updateCartBadge(); // Ensure badge updates immediately after persistence
       renderCartPage();
     });
   });
@@ -1273,5 +1275,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-

@@ -25,15 +25,27 @@
     };
     const iconClass = iconMap[type] || 'fa-circle-info';
 
-    toast.innerHTML =
-      '<i class="fa-solid ' + iconClass + '" aria-hidden="true"></i>' +
-      '<span class="toast-message">' + message + '</span>' +
-      '<button class="toast-close" aria-label="Close notification">&times;</button>';
+    // Construct safe elements to prevent DOM-based XSS injection
+    const icon = document.createElement('i');
+    icon.className = 'fa-solid ' + iconClass;
+    icon.setAttribute('aria-hidden', 'true');
 
-    const closeBtn = toast.querySelector('.toast-close');
+    const messageSpan = document.createElement('span');
+    messageSpan.className = 'toast-message';
+    messageSpan.textContent = message; // Safely set text content instead of innerHTML
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'toast-close';
+    closeBtn.setAttribute('aria-label', 'Close notification');
+    closeBtn.innerHTML = '&times;';
+
     closeBtn.addEventListener('click', function() {
       dismiss(toast);
     });
+
+    toast.appendChild(icon);
+    toast.appendChild(messageSpan);
+    toast.appendChild(closeBtn);
 
     getContainer().appendChild(toast);
 

@@ -1,185 +1,125 @@
 /**
- * Furnix Interactive Shopping Cart Engine
- * Manages client-side cart interactions, event propagation, state synchronization, and DOM updates.
+ * Furnix Catalog Quantity Controller
+ * Manages dynamic inline quantity selectors on catalog grid product cards.
  */
-
-(function(global) {
+(function() {
     'use strict';
 
-    const CART_STORAGE_KEY = 'furnix_shopping_cart';
-    const PROMO_STORAGE_KEY = 'furnix_applied_promo';
+    function initCatalogQuantityControls() {
+        const cartEngine = window.FurnixCartEngine;
+        if (!cartEngine) return;
 
-    class CartEngine {
-        constructor() {
-            this.calculator = global.CartCalculator || null;
-            this.listeners = [];
-            this.activePromo = this.loadPromo();
-        }
+        // Find all product cards that contain a cart action area
+        const productCards = document.querySelectorAll('.product-card');
 
-        getCartItems() {
-            try {
-                const raw = localStorage.getItem(CART_STORAGE_KEY);
-                return raw ? JSON.parse(raw) : [];
-            } catch (e) {
-                console.warn('CartEngine: Error reading localStorage cart:', e);
-                return [];
+        productCards.forEach(card => {
+            // Ensure each product card has or can derive a unique product ID/data
+            const cartBtn = card.querySelector('[data-cart-btn]');
+            const imgEl = card.querySelector('img');
+            const titleEl = card.querySelector('h4, h6');
+            const priceEl = card.querySelector('.price');
+
+            if (!cartBtn && !card.querySelector('.inline-quantity-selector')) return;
+
+            // Generate a stable ID based on title if not explicitly present
+            const productName = titleEl ? titleEl.textContent.trim() : 'Furniture Item';
+            const productId = cartBtn?.getAttribute('data-product-id') || productName.toLowerCase().replace(/\s+/g, '-');
+
+            if (cartBtn && !cartBtn.hasAttribute('data-product-id')) {
+                cartBtn.setAttribute('data-product-id', productId);
             }
-        }
 
-        saveCartItems(items) {
-            try {
-                localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-                this.notify();
-            } catch (e) {
-                console.error('CartEngine: Error saving localStorage cart:', e);
+            // Extract price value safely
+            let priceVal = 0;
+            if (priceEl) {
+                const priceText = priceEl.textContent.replace(/[^0-9.]/g, '');
+                priceVal = parseFloat(priceText) || 0;
             }
-        }
 
-        loadPromo() {
-            try {
-                return localStorage.getItem(PROMO_STORAGE_KEY) || '';
-            } catch (e) {
-                return '';
-            }
-        }
+            const imageSrc = imgEl ? imgEl.getAttribute('src') : 'images/furniture1.png';
 
-        savePromo(code) {
-            try {
-                if (code) {
-                    localStorage.setItem(PROMO_STORAGE_KEY, code);
-                } else {
-                    localStorage.removeItem(PROMO_STORAGE_KEY);
-                }
-                this.activePromo = code;
-                this.notify();
-            } catch (e) {
-                console.error('CartEngine: Error saving promo code:', e);
-            }
-        }
+            // Check current quantity in cart
+            const items = cartEngine.getCartItems();
+            const cartItem = items.find(i => i.id === productId);
+            const currentQty = cartItem ? cartItem.quantity : 0;
 
-        addItem(product) {
-            if (!product || !product.id) return;
-            const items = this.getCartItems();
-            const existingIndex = items.findIndex(item => item.id === product.id);
+            // Locate container for the action button/selector
+            const actionContainer = cartBtn ? cartBtn.parentNode : card.querySelector('.inline-quantity-selector')?.parentNode;
+            if (!actionContainer) return;
 
-            if (existingIndex > -1) {
-                items[existingIndex].quantity = (items[existingIndex].quantity || 1) + (product.quantity || 1);
+            if (currentQty > 0) {
+                actionContainer.innerHTML = `
+                    <div class="inline-quantity-selector flex between" style="display: flex; align-items: center; justify-content: space-between; background: var(--bg, #f4f4f4); border: 1px solid var(--border, #ddd); border-radius: 8px; padding: 10px 14px; margin-top: 6px;">
+                        <button type="button" class="qty-btn decrement-btn" data-product-id="${productId}" aria-label="Decrease quantity" style="background: none; border: none; font-size: 1.2rem; font-weight: 700; cursor: pointer; color: var(--text, #333);">-</button>
+                        <span class="qty-display" style="font-weight: 600; font-size: 1rem; color: var(--text, #333);">${currentQty}</span>
+                        <button type="button" class="qty-btn increment-btn" data-product-id="${productId}" aria-label="Increase quantity" style="background: none; border: none; font-size: 1.2rem; font-weight: 700; cursor: pointer; color: var(--text, #333);">+</button>
+                    </div>
+                `;
             } else {
-                items.push({
-                    id: product.id,
-                    name: product.name || 'Furniture Item',
-                    price: parseFloat(product.price) || 0,
-                    image: product.image || 'images/furniture1.png',
-                    category: product.category || 'Home',
-                    quantity: parseInt(product.quantity, 10) || 1
-                });
+                actionContainer.innerHTML = `
+                    <button class="btn brown-bg" style="display: block; text-align: center; width: 100%;" data-cart-btn data-product-id="${productId}">
+                        Add to cart
+                    </button>
+                `;
             }
-
-            this.saveCartItems(items);
-            if (global.showToast) {
-                global.showToast(`${product.name || 'Item'} added to cart!`, 'success');
-            }
-        }
-
-        updateQuantity(productId, delta) {
-            const items = this.getCartItems();
-            const item = items.find(i => i.id === productId);
-            if (!item) return;
-
-            const newQty = (item.quantity || 1) + delta;
-            if (newQty <= 0) {
-                this.removeItem(productId);
-            } else if (newQty <= 99) {
-                item.quantity = newQty;
-                this.saveCartItems(items);
-            }
-        }
-
-        setQuantity(productId, quantity) {
-            const items = this.getCartItems();
-            const item = items.find(i => i.id === productId);
-            if (!item) return;
-
-            const parsed = parseInt(quantity, 10);
-            if (parsed > 0 && parsed <= 99) {
-                item.quantity = parsed;
-                this.saveCartItems(items);
-            } else if (parsed <= 0) {
-                this.removeItem(productId);
-            }
-        }
-
-        removeItem(productId) {
-            const items = this.getCartItems().filter(i => i.id !== productId);
-            this.saveCartItems(items);
-            if (global.showToast) {
-                global.showToast('Item removed from cart', 'info');
-            }
-        }
-
-        clearCart() {
-            this.saveCartItems([]);
-            this.savePromo('');
-        }
-
-        getSummary() {
-            const items = this.getCartItems();
-            if (this.calculator) {
-                return this.calculator.calculateSummary(items, this.activePromo);
-            }
-            // Fallback basic calculation
-            const subtotal = items.reduce((acc, i) => acc + (parseFloat(i.price) * (i.quantity || 1)), 0);
-            return { subtotal, grandTotal: subtotal, itemCount: items.length };
-        }
-
-        applyPromo(code) {
-            if (!this.calculator) return { success: false, message: 'Calculator missing' };
-            const promo = this.calculator.validatePromoCode(code);
-            if (promo) {
-                this.savePromo(promo.code);
-                return { success: true, promo, message: `Promo code ${promo.code} applied!` };
-            }
-            return { success: false, message: 'Invalid promo code. Try FURNIX10 or ECSOC2026' };
-        }
-
-        removePromo() {
-            this.savePromo('');
-        }
-
-        subscribe(callback) {
-            if (typeof callback === 'function') {
-                this.listeners.push(callback);
-            }
-        }
-
-        notify() {
-            const summary = this.getSummary();
-            const items = this.getCartItems();
-            
-            // Dispatch global DOM custom event
-            const event = new CustomEvent('furnix:cart-updated', {
-                detail: { items, summary }
-            });
-            window.dispatchEvent(event);
-
-            this.listeners.forEach(cb => cb(items, summary));
-            this.updateBadges(summary.itemCount);
-        }
-
-        updateBadges(count) {
-            const badges = document.querySelectorAll('#cart-badge, .cart-badge');
-            badges.forEach(b => {
-                b.textContent = count;
-                b.style.display = count > 0 ? 'inline-flex' : 'none';
-            });
-        }
+        });
     }
 
-    const instance = new CartEngine();
-    global.FurnixCartEngine = instance;
+    // Global event delegation for catalog cart interactions
+    document.addEventListener('click', (e) => {
+        const cartEngine = window.FurnixCartEngine;
+        if (!cartEngine) return;
 
-    document.addEventListener('DOMContentLoaded', () => {
-        instance.notify();
+        // Handle initial "Add to cart" click
+        const cartBtn = e.target.closest('[data-cart-btn]');
+        if (cartBtn) {
+            e.preventDefault();
+            const card = cartBtn.closest('.product-card');
+            const productId = cartBtn.getAttribute('data-product-id');
+            const titleEl = card?.querySelector('h4, h6');
+            const priceEl = card?.querySelector('.price');
+            const imgEl = card?.querySelector('img');
+
+            const name = titleEl ? titleEl.textContent.trim() : 'Furniture Item';
+            let price = 0;
+            if (priceEl) {
+                price = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+            }
+            const image = imgEl ? imgEl.getAttribute('src') : 'images/furniture1.png';
+
+            cartEngine.addItem({ id: productId, name, price, image, quantity: 1 });
+            initCatalogQuantityControls();
+            return;
+        }
+
+        // Handle increment (+) click
+        const incBtn = e.target.closest('.increment-btn');
+        if (incBtn) {
+            e.preventDefault();
+            const productId = incBtn.getAttribute('data-product-id');
+            cartEngine.updateQuantity(productId, 1);
+            initCatalogQuantityControls();
+            return;
+        }
+
+        // Handle decrement (-) click
+        const decBtn = e.target.closest('.decrement-btn');
+        if (decBtn) {
+            e.preventDefault();
+            const productId = decBtn.getAttribute('data-product-id');
+            cartEngine.updateQuantity(productId, -1);
+            initCatalogQuantityControls();
+            return;
+        }
     });
 
-})(typeof window !== 'undefined' ? window : this);
+    // Re-initialize controls whenever cart updates globally
+    window.addEventListener('furnix:cart-updated', () => {
+        initCatalogQuantityControls();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initCatalogQuantityControls();
+    });
+
+})();
