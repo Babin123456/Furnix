@@ -73,6 +73,23 @@ app.post('/api/contact', contactLimiter, (req, res) => {
   });
 });
 
+// POST /api/subscribe endpoint for newsletter subscriptions
+app.post('/api/subscribe', contactLimiter, (req, res) => {
+  const { email } = req.body;
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide a valid email address."
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "Thank you for subscribing to Furnix updates!"
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
